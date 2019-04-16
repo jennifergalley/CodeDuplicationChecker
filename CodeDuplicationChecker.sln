@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDuplicationChecker", "CodeDuplicationChecker\CodeDuplicationChecker.csproj", "{3DC31D7A-B838-41A3-A483-05369B3DECBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDuplicationCheckerTests", "CodeDuplicationCheckerTests\CodeDuplicationCheckerTests.csproj", "{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DC31D7A-B838-41A3-A483-05369B3DECBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC31D7A-B838-41A3-A483-05369B3DECBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC31D7A-B838-41A3-A483-05369B3DECBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC31D7A-B838-41A3-A483-05369B3DECBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89C10415-0995-409F-A5E5-8D372381D5EB}
+	EndGlobalSection
+EndGlobal
