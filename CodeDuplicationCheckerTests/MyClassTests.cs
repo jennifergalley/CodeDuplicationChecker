@@ -2,7 +2,7 @@
 using CodeDuplicationChecker;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeDuplicationCheckerTests
+namespace CodeDuplicationChecker.Tests
 {
     [TestClass]
     public class MyClassTests
