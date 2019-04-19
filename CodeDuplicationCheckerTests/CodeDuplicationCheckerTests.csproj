@@ -49,8 +49,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeIteratorTests.cs" />
     <Compile Include="MyClassTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleCode\RiddledWithDuplicates.cs" />
     <Compile Include="SimilarityScorerTests.cs" />
   </ItemGroup>
   <ItemGroup>
