@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace CodeDuplicationChecker
@@ -19,9 +20,15 @@ namespace CodeDuplicationChecker
         /// Generates an HTML (or other) results file for viewing the list of CodeDuplicates.
         /// </summary>
         /// <param name="filepath">the location to save the file</param>
+        /// <param name="verbose">the verbosity of the output. True = verbose, False = normal</param>
         /// <returns>True on success, false on failure</returns>
-        public bool GenerateResultsFile(string filepath)
+        public bool GenerateResultsFile(string filepath = "", bool verbose = false)
         {
+            if (verbose)
+            {
+                Console.WriteLine("Beginning execution of GenerateResultsFile");
+            }
+
             var filename = filepath + "\\CodeDuplicationResults.html";
 
             //
@@ -32,6 +39,10 @@ namespace CodeDuplicationChecker
             // Saves said file / visualization in the filepath specified (or somewhere that makes sense)
             // Returns false if it fails for some reason maybe?
 
+            if (verbose)
+            {
+                Console.WriteLine("Finishing execution of GenerateResultsFile");
+            }
             return true;
         }
     }

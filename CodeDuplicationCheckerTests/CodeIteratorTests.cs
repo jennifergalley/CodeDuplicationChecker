@@ -18,7 +18,7 @@ namespace CodeDuplicationChecker.Tests
             var filename = "../../SampleCode/RiddledWithDuplicates.cs";
 
             // Act
-            var results = CodeIterator.CheckFileForDuplicates(filename);
+            var results = CodeIterator.CheckForDuplicates(filename);
 
             // Assert
             Assert.IsNotNull(results);
