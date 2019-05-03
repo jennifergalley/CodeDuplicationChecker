@@ -85,7 +85,7 @@ namespace CodeDuplicationChecker
 
                 // Generate the results
                 blockOfExecution = "generating the results file";
-                results.GenerateResultsFile(resultsPath, verbose);
+                results.GenerateResultsFile(verbose);
             }
             catch (Exception e)
             {
