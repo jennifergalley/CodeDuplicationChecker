@@ -35,15 +35,7 @@ namespace CodeDuplicationChecker
         public bool GenerateResultsFile(bool verbose = false)
         {
             if (verbose) Console.WriteLine("Beginning execution of GenerateResultsFile");
-
-            //
-            // TO BE WRITTEN
-            //
-            // Reads the CodeDuplicates object
-            // Creates an HTML visualization
-            // Returns false if it fails for some reason
-
-
+            
             // Create the "Results" folder if it does not exist
             Console.WriteLine("Creating Results directory");
             Directory.CreateDirectory(Filepath);
@@ -54,7 +46,18 @@ namespace CodeDuplicationChecker
             {
                 using (StreamWriter w = new StreamWriter(fs, Encoding.UTF8))
                 {
-                    w.WriteLine("<H1>NEW</H1>");
+                    foreach(var dup in CodeDuplicates)
+                    {
+                        foreach(var clone in dup.Instances)
+                        {
+                            w.WriteLine($"<h1>File: {clone.Filename}</h1>");
+                            w.WriteLine($"<h2>Start: {clone.StartLine}</h2>");
+                            w.WriteLine($"<h2>End: {clone.EndLine}</h2>");
+                            w.WriteLine($"<pre>Code: {System.Security.SecurityElement.Escape(clone.Code)}</pre>");
+                        }
+
+                        w.WriteLine($"<hr>");
+                    }
                 }
             }
 
