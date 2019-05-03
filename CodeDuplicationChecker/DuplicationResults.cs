@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace CodeDuplicationChecker
 {
@@ -17,32 +18,47 @@ namespace CodeDuplicationChecker
         public List<DuplicateCode> CodeDuplicates;
 
         /// <summary>
+        /// The directory in which to save the results file
+        /// </summary>
+        public readonly string Filepath = "../../../Results/";
+
+        /// <summary>
+        /// The name of the results file itself
+        /// </summary>
+        public readonly string Filename = "results.html";
+
+        /// <summary>
         /// Generates an HTML (or other) results file for viewing the list of CodeDuplicates.
         /// </summary>
-        /// <param name="filepath">the location to save the file</param>
-        /// <param name="verbose">the verbosity of the output. True = verbose, False = normal</param>
+        /// <param name="verbose">the verbosity of the logging output. True = verbose, False = normal</param>
         /// <returns>True on success, false on failure</returns>
-        public bool GenerateResultsFile(string filepath = "", bool verbose = false)
+        public bool GenerateResultsFile(bool verbose = false)
         {
-            if (verbose)
-            {
-                Console.WriteLine("Beginning execution of GenerateResultsFile");
-            }
-
-            var filename = filepath + "\\CodeDuplicationResults.html";
+            if (verbose) Console.WriteLine("Beginning execution of GenerateResultsFile");
 
             //
             // TO BE WRITTEN
             //
             // Reads the CodeDuplicates object
-            // Creates a file / visualization
-            // Saves said file / visualization in the filepath specified (or somewhere that makes sense)
-            // Returns false if it fails for some reason maybe?
+            // Creates an HTML visualization
+            // Returns false if it fails for some reason
 
-            if (verbose)
+
+            // Create the "Results" folder if it does not exist
+            Console.WriteLine("Creating Results directory");
+            Directory.CreateDirectory(Filepath);
+
+            // Write the file
+            Console.WriteLine("Writing the results file");
+            using (FileStream fs = new FileStream(Filepath + Filename, FileMode.Create))
             {
-                Console.WriteLine("Finishing execution of GenerateResultsFile");
+                using (StreamWriter w = new StreamWriter(fs, Encoding.UTF8))
+                {
+                    w.WriteLine("<H1>NEW</H1>");
+                }
             }
+
+            if (verbose) Console.WriteLine("Finishing execution of GenerateResultsFile");
             return true;
         }
     }
