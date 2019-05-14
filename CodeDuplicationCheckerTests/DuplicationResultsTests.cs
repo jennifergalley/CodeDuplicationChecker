@@ -36,7 +36,7 @@ namespace CodeDuplicationChecker.Tests
             var copy = type1.Copy();
 
             // Act
-            DuplicationResults.GenerateCodeHTML(copy);
+            copy.GenerateCodeHTML();
 
             // Assert
             for (int i = 0; i < type1.Instances.Count; i++)
@@ -54,7 +54,7 @@ namespace CodeDuplicationChecker.Tests
             var copy = type2.Copy();
 
             // Act
-            DuplicationResults.GenerateCodeHTML(copy);
+            copy.GenerateCodeHTML();
 
             // Assert
             for (int i = 0; i < type2.Instances.Count; i++)
@@ -72,7 +72,7 @@ namespace CodeDuplicationChecker.Tests
             var copy = type3.Copy();
 
             // Act
-            DuplicationResults.GenerateCodeHTML(copy);
+            copy.GenerateCodeHTML();
 
             // Assert
             for (int i = 0; i < type3.Instances.Count; i++)
@@ -81,6 +81,100 @@ namespace CodeDuplicationChecker.Tests
                 var actual = copy.Instances[i].CodeHtml.Trim();
                 Assert.AreEqual(expected, actual, $"Instance {i} failed");
             }
+        }
+
+        [TestMethod()]
+        public void Master_Type1_Test()
+        {
+            // Arrange
+            var copy = type1.Copy();
+            var expected = @"if (!loadedInstances.ContainsKey(action.TestClass))
+{
+    // Get the Constructor
+    ConstructorInfo methodConstructor = type.GetConstructor(Type.EmptyTypes);
+    methodInstance = methodConstructor.Invoke(new object[] { });
+    // Need to call SetTestContext(TestContext context) to pass test item setting and logger info. And use same test context for all the action modules in same test.
+    methodInfo = type.GetMethod(""SetTestContext"");
+    object[] setTextContextParameters = new object[1];
+    setTextContextParameters[0] = testContext;
+    methodInfo.Invoke(methodInstance, setTextContextParameters);
+    loadedInstances.Add(action.TestClass, methodInstance);
+}
+else
+{
+    methodInstance = loadedInstances[action.TestClass];
+}";
+
+            // Act
+            var actual = copy.Master;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void Master_Type2_Test()
+        {
+            // Arrange
+            var copy = type2.Copy();
+            var expected = @"/// <summary>
+/// Update the RunTime Value in the *Tests.xml 
+/// </summary>
+/// <param name=""templateDefintion""></param>
+/// <returns></returns>
+public static List<TestItem.Action> UpdateActionsRunTimeValues(List<TestItem.Action> templateDefintion, TestContext testContext)
+{
+    XmlSerializer s = new XmlSerializer(typeof(List<TestItem.Action>));
+    using (StringWriter outStream = new StringWriter())
+    {
+        s.Serialize(outStream, templateDefintion);
+        string input = outStream.ToString();
+        input = ReplaceRunTimeValues(input, testContext, ref s);
+        using (StringReader rdr = new StringReader(input))
+        {
+            templateDefintion = (List<TestItem.Action>)s.Deserialize(rdr);
+        }
+    }
+    return templateDefintion;
+}";
+
+            // Act
+            var actual = copy.Master;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void Master_Type3_Test()
+        {
+            // Arrange
+            var copy = type3.Copy();
+            var expected = @"public static List<TestItem.Action> UpdateActionsRunTimeValues(List<TestItem.Action> templateDefintion, TestContext testContext)
+{
+    XmlSerializer s = new XmlSerializer(typeof(List<TestItem.Action>));
+    using (StringWriter outStream = new StringWriter())
+    {
+        // Here are some reordered lines
+        int j = 5 * 6;
+        int i = 3 * 5;
+        // This is an added comment
+        s.Serialize(outStream, templateDefintion);
+        string input = outStream.ToString();
+        input = ReplaceRunTimeValues(input, testContext, ref s);
+        using (StringReader rdr = new StringReader(input))
+        {
+            templateDefintion = (List<TestItem.Action>)s.Deserialize(rdr);
+        }
+    }
+    return templateDefintion;
+}";
+
+            // Act
+            var actual = copy.Master;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
         }
 
         #region TestCode
