@@ -56,7 +56,8 @@ namespace CountMatrixCloneDetection
                                     MethodText = methodB.MethodNode.GetText().ToString(),
                                     EndLineNumber = methodB.MethodNode.FullSpan.End,
                                     StartLineNumber = methodB.MethodNode.FullSpan.Start
-                                }
+                                },
+                                Score = compareResult
                             });
                         }
                         catch (Exception ex)
@@ -240,6 +241,8 @@ namespace CountMatrixCloneDetection
         public CMDCMethodInfo MethodA { get; set; }
 
         public CMDCMethodInfo MethodB { get; set; }
+
+        public double Score { get; set; }
     }
 
     /// <summary>
