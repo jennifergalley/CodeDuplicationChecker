@@ -84,7 +84,7 @@ namespace CodeDuplicationChecker
             }
 
             var results = new List<DuplicateInstance>();
-
+            var cmdcResults = CMCD.Run(dir);
             //
             // TO BE WRITTEN
             //
