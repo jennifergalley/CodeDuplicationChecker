@@ -1,9 +1,7 @@
-﻿using System;
+﻿using CountMatrixCloneDetection;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeDuplicationChecker
 {
@@ -16,7 +14,7 @@ namespace CodeDuplicationChecker
         /// <param name="dir">the name of the directory to scan</param>
         /// <param name="instances">(optional) the minimum number of duplicate instances to check for</param>
         /// <param name="verbose">(optinoal) the verbosity of the output. True = verbose, False = normal</param>
-        public static DuplicationResults CheckForDuplicates(string filename = "", string dir = "", int instances = 0, bool verbose = false)
+        public static List<DuplicateInstance> CheckForDuplicates(string filename = "", string dir = "", int instances = 0, bool verbose = false)
         {
             if (verbose)
             {
@@ -53,7 +51,7 @@ namespace CodeDuplicationChecker
         /// <param name="filename">the name of the file</param>
         /// <param name="instances">the minimum number of duplicate instances to check for</param>
         /// <param name="verbose">the verbosity of the output. True = verbose, False = normal</param>
-        private static DuplicationResults CheckFileForDuplicates(string filename, int instances, bool verbose)
+        private static List<DuplicateInstance> CheckFileForDuplicates(string filename, int instances, bool verbose)
         {
             if (verbose)
             {
@@ -61,14 +59,9 @@ namespace CodeDuplicationChecker
             }
 
             var file = File.ReadAllText(filename);
-            var results = new DuplicationResults();
+            var results = new List<DuplicateInstance>();
 
-            //
-            // TO BE WRITTEN
-            //
-            // Loop through file contents somehow
-            // Build result object
-            //
+            var cmcdResults = CMCD.Run(filename);
 
             if (verbose)
             {
@@ -83,15 +76,15 @@ namespace CodeDuplicationChecker
         /// <param name="dir">the path of the directory</param>
         /// <param name="instances">the minimum number of duplicate instances to check for</param>
         /// <param name="verbose">the verbosity of the output. True = verbose, False = normal</param>
-        private static DuplicationResults CheckDirForDuplicates(string dir, int instances, bool verbose)
+        private static List<DuplicateInstance> CheckDirForDuplicates(string dir, int instances, bool verbose)
         {
             if (verbose)
             {
                 Console.WriteLine("Beginning execution of CheckDirForDuplicates");
             }
 
-            var results = new DuplicationResults();
-
+            var results = new List<DuplicateInstance>();
+            var cmdcResults = CMCD.Run(dir);
             //
             // TO BE WRITTEN
             //
