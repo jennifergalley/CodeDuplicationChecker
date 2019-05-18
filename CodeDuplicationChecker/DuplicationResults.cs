@@ -49,7 +49,7 @@ namespace CodeDuplicationChecker
                 {
                     foreach (var dup in CodeDuplicates)
                     {
-                        GenerateCodeHTML(dup);
+                        dup.GenerateCodeHTML();
 
                         foreach (var clone in dup.Instances)
                         {
@@ -66,11 +66,11 @@ namespace CodeDuplicationChecker
                     w.WriteLine(@"
                     <style>
                         span.diff {
-                            background-color: red;
+                            background-color: yellow;
                         }
-                        span.same {
+                        /*span.same {
                             background-color: greenyellow;
-                        }
+                        }*/
                     </style>");
                 }
             }
@@ -79,25 +79,95 @@ namespace CodeDuplicationChecker
             return true;
         }
 
+
+        //internal static List<string> SplitCodePunctuation(string code)
+        //{
+        //    string pattern = @"^(\s+|\d+|\w+|[^\d\s\w])+$";
+
+        //    Regex regex = new Regex(pattern);
+        //    var results = new List<string>();
+        //    if (regex.IsMatch(code))
+        //    {
+        //        Match match = regex.Match(code);
+
+        //        foreach (Capture capture in match.Groups[1].Captures)
+        //        {
+        //            if (!string.IsNullOrWhiteSpace(capture.Value))
+        //            {
+        //                results.Add(capture.Value);
+        //            }
+        //        }
+        //    }
+
+        //    return results;
+        //}
+
+    }
+
+    /// <summary>
+    /// A collection of Instances of duplicate code. All of these
+    /// instances will have code that is very similar to each other
+    /// but they may not be exactly the same.
+    /// </summary>
+    public class DuplicateCode
+    {
+        /// <summary>
+        /// A list of instances of the same code throughout a file or files
+        /// </summary>
+        public List<DuplicateInstance> Instances;
+
+        /// <summary>
+        /// A "master" copy of the cloned code, comprised of the most common denominators.
+        /// </summary>
+        private string master = string.Empty;
+
+        internal DuplicateCode Copy()
+        {
+            var copy = new DuplicateCode()
+            {
+                Instances = new List<DuplicateInstance>()
+            };
+
+            foreach (var instance in Instances)
+            {
+                copy.Instances.Add(instance.Copy());
+            }
+
+            return copy;
+        }
+
+        /// <summary>
+        /// Splits a string on newlines and returns a list of lines as strings
+        /// </summary>
+        /// <param name="code">the code to split</param>
+        /// <returns>a list of lines as strings</returns>
+        public static List<string> SplitCodeNewlines(string code)
+        {
+            return code.Split(
+                new[] { "\r\n", "\r", "\n" },
+                StringSplitOptions.None
+            ).ToList();
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="dup"></param>
-        internal static void GenerateCodeHTML(DuplicateCode dup)
+        public void GenerateCodeHTML()
         {
             // Find the set of differences between the code snippets
             var diffs = new List<string>();
-            var compare1 = SplitCodeNewlines(dup.Instances[0].Code);
-            for (int i = 1; i < dup.Instances.Count; i++)
+            var compare1 = SplitCodeNewlines(Instances[0].Code);
+            for (int i = 1; i < Instances.Count; i++)
             {
-                var compare2 = SplitCodeNewlines(dup.Instances[i].Code);
+                var compare2 = SplitCodeNewlines(Instances[i].Code);
                 diffs = diffs.Union(compare1.Except(compare2).Union(compare2.Except(compare1))).ToList();
             }
 
             // For each block of code
-            for (int i = 0; i < dup.Instances.Count; i++)
+            for (int i = 0; i < Instances.Count; i++)
             {
-                var splitByLine = SplitCodeNewlines(dup.Instances[i].Code.Trim());
+                var splitByLine = SplitCodeNewlines(Instances[i].Code.Trim());
                 var html = new StringBuilder();
 
                 // Highlight the lines with a diff using the split by newline
@@ -122,66 +192,127 @@ namespace CodeDuplicationChecker
                     }
                 }
 
-                dup.Instances[i].CodeHtml = html.ToString();
+                Instances[i].CodeHtml = html.ToString();
             }
         }
 
-        //internal static List<string> SplitCodePunctuation(string code)
-        //{
-        //    string pattern = @"^(\s+|\d+|\w+|[^\d\s\w])+$";
-
-        //    Regex regex = new Regex(pattern);
-        //    var results = new List<string>();
-        //    if (regex.IsMatch(code))
-        //    {
-        //        Match match = regex.Match(code);
-
-        //        foreach (Capture capture in match.Groups[1].Captures)
-        //        {
-        //            if (!string.IsNullOrWhiteSpace(capture.Value))
-        //            {
-        //                results.Add(capture.Value);
-        //            }
-        //        }
-        //    }
-
-        //    return results;
-        //}
-
-        internal static List<string> SplitCodeNewlines(string code)
-        {
-            return code.Split(
-                new[] { "\r\n", "\r", "\n" },
-                StringSplitOptions.None
-            ).ToList();
-        }
-    }
-
-    /// <summary>
-    /// A collection of Instances of duplicate code. All of these
-    /// instances will have code that is very similar to each other
-    /// but they may not be exactly the same.
-    /// </summary>
-    public class DuplicateCode
-    {
         /// <summary>
-        /// A list of instances of the same code throughout a file or files
+        /// Gets or creates a master copy of the duplicated code
         /// </summary>
-        public List<DuplicateInstance> Instances;
-
-        internal DuplicateCode Copy()
+        /// <returns>the master copy of the duplicated code</returns>
+        public string Master
         {
-            var copy = new DuplicateCode()
+            get
             {
-                Instances = new List<DuplicateInstance>()
-            };
+                if (!string.IsNullOrWhiteSpace(master))
+                {
+                    return master;
+                }
+
+                // For each instance of duplicated code, split the code into lines
+                // and assign each line a corresponding vote
+                var lineMap = BuildLineMap();
+
+                string winningLine;
+                var masterCode = new StringBuilder();
+                for (int i = 0; i < lineMap.Count; i++)
+                {
+                    // Get the winning line, or see if we should stop
+                    if (GetWinningLine(lineMap[i], out winningLine))
+                    {
+                        // If we have already finished, stop
+                        break;
+                    }
+
+                    // Else, add the winning line to master
+                    masterCode.AppendLine(winningLine);
+                }
+
+                master = masterCode.ToString().TrimEnd();
+                return master;
+            }
+        }
+
+        /// <summary>
+        /// Build a mapping from index to line of code and number of votes per line
+        /// </summary>
+        /// <returns>a mapping from index to line of code and number of votes per line</returns>
+        private Dictionary<int, Dictionary<string, int>> BuildLineMap()
+        {
+            var lineMap = new Dictionary<int, Dictionary<string, int>>();
 
             foreach (var instance in Instances)
             {
-                copy.Instances.Add(instance.Copy());
+                var lines = SplitCodeNewlines(instance.Code);
+
+                int j = 0;
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    var line = lines[i];
+
+                    if (string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
+
+                    if (lineMap.TryGetValue(j, out var lineVotes))
+                    {
+                        if (lineVotes.ContainsKey(line))
+                        {
+                            lineVotes[line] += 1;
+                        }
+                        else
+                        {
+                            lineVotes.Add(line, 1);
+                        }
+
+                        lineMap[j] = lineVotes;
+                    }
+                    else
+                    {
+                        lineMap.Add(j, new Dictionary<string, int>() { { line, 1 } });
+                    }
+
+                    j++;
+                }
             }
 
-            return copy;
+            return lineMap;
+        }
+
+        /// <summary>
+        /// Do magic
+        /// </summary>
+        /// <param name="lineVotes"></param>
+        /// <param name="winningLine"></param>
+        /// <returns></returns>
+        private bool GetWinningLine(Dictionary<string, int> lineVotes, out string winningLine)
+        {
+            int max = 0;
+            int sum = 0;
+            winningLine = string.Empty;
+
+            // Get the line with the maximum votes
+            foreach (var pair in lineVotes)
+            {
+                var line = pair.Key;
+                var votes = pair.Value;
+                sum += votes;
+
+                if (votes > max)
+                {
+                    max = votes;
+                    winningLine = line;
+                }
+            }
+
+            // Determine stopping condition - big open question
+            if (sum <= (Instances.Count / 2))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 

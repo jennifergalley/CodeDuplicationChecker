@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDuplicationChecker", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDuplicationCheckerTests", "CodeDuplicationCheckerTests\CodeDuplicationCheckerTests.csproj", "{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountMatrixCloneDetection", "CountMatrixCloneDetection\CountMatrixCloneDetection.csproj", "{249DDC98-B1C8-4D4F-A063-20BE510D022E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{249DDC98-B1C8-4D4F-A063-20BE510D022E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{249DDC98-B1C8-4D4F-A063-20BE510D022E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{249DDC98-B1C8-4D4F-A063-20BE510D022E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{249DDC98-B1C8-4D4F-A063-20BE510D022E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
