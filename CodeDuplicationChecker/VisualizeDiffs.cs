@@ -59,7 +59,7 @@ namespace CodeDuplicationChecker
                     w.WriteLine(@"
                     <style>
                         span.diff {
-                            background-color: red;
+                            background-color: yellow;
                         }
                         /*span.same {
                             background-color: greenyellow;

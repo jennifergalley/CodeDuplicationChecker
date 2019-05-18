@@ -15,18 +15,18 @@ namespace CountMatrixCloneDetection
         /// <summary>
         /// Method to run the CMCD algorithm
         /// </summary>
-        public static List<CMDCDuplicateResult> Run(string path)
+        public static List<CMDCDuplicateResult> Run(string DirectoryPath)
         {
             var comparisionResults = new List<CMDCDuplicateResult>();
             try
             {
                 var allMethods = new List<CMDCMethod>();
                 var files = new List<string>();
-                FileAttributes attr = File.GetAttributes(path);
+                FileAttributes attr = File.GetAttributes(DirectoryPath);
                 if (attr.HasFlag(FileAttributes.Directory))
                 {
                     // it's a directory
-                    files = Directory.GetFiles(path, "*.cs", SearchOption.AllDirectories).ToList();
+                    files = Directory.GetFiles(DirectoryPath, "*.cs", SearchOption.AllDirectories).ToList();
 
                 }
                 foreach (var file in files)
@@ -56,12 +56,13 @@ namespace CountMatrixCloneDetection
                                     MethodText = methodB.MethodNode.GetText().ToString(),
                                     EndLineNumber = methodB.MethodNode.FullSpan.End,
                                     StartLineNumber = methodB.MethodNode.FullSpan.Start
-                                }
+                                },
+                                Score = compareResult
                             });
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine(ex.ToString());
+                            Console.WriteLine(ex.Message);
                         }
                     }
                 }
@@ -240,6 +241,8 @@ namespace CountMatrixCloneDetection
         public CMDCMethodInfo MethodA { get; set; }
 
         public CMDCMethodInfo MethodB { get; set; }
+
+        public double Score { get; set; }
     }
 
     /// <summary>
