@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace CodeDuplicationChecker
 {
@@ -85,19 +86,35 @@ namespace CodeDuplicationChecker
 
             var results = new List<DuplicateInstance>();
             var cmdcResults = CMCD.Run(dir);
-            //
-            // TO BE WRITTEN
-            //
-            // Loop through files in dir
-            // Call CheckFileForDuplicates
-            // Compare files with each other
-            //
+            
+            foreach(var result in cmdcResults)
+            {
+                // Method A
+                results.Add(new DuplicateInstance()
+                {
+                    Filename = result.MethodA.FileName,
+                    EndLine = result.MethodA.EndLineNumber,
+                    StartLine = result.MethodA.StartLineNumber,
+                    Code = result.MethodA.MethodText
+                });
+
+                // Method B
+                results.Add(new DuplicateInstance()
+                {
+                    Filename = result.MethodB.FileName,
+                    EndLine = result.MethodB.EndLineNumber,
+                    StartLine = result.MethodB.StartLineNumber,
+                    Code = result.MethodB.MethodText
+                });
+
+                
+            }
 
             if (verbose)
             {
                 Console.WriteLine("Finishing execution of CheckDirForDuplicates");
             }
-            return results;
+            return results.Skip(100).Take(2).ToList();
         }
     }
 }

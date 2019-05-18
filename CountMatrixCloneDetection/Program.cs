@@ -12,6 +12,7 @@ namespace CountMatrixCloneDetection
     {
         public static void Main(string[] args)
         {
+            CMCD.Run(@"..\\..\\..\\");
             return;
         }
     }
