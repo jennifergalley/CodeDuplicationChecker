@@ -138,7 +138,7 @@ else
 <span class='same'>    methodInstance = methodConstructor.Invoke(new object[] { });</span>
 <span class='same'></span>
 <span class='same'>    // Need to call SetTestContext(TestContext context) to pass test item setting and logger info. And use same test context for all the action modules in same test.</span>
-<span class='same'>    methodInfo = type.GetMethod(""SetTestContext"");</span>
+<span class='same'>    methodInfo = type.GetMethod(&quot;SetTestContext&quot;);</span>
 <span class='same'>    object[] setTextContextParameters = new object[1];</span>
 <span class='diff'>    // New comment</span>
 <span class='same'>    setTextContextParameters[0] = testContext;</span>
@@ -180,14 +180,12 @@ else
 <span class='same'>    ConstructorInfo methodConstructor = type.GetConstructor(Type.EmptyTypes);</span>
 <span class='same'>    methodInstance = methodConstructor.Invoke(new object[] { });</span>
 <span class='same'></span>
-<span class='same'></span>
 <span class='same'>    // Need to call SetTestContext(TestContext context) to pass test item setting and logger info. And use same test context for all the action modules in same test.</span>
-<span class='same'>    methodInfo = type.GetMethod(""SetTestContext"");</span>
+<span class='same'>    methodInfo = type.GetMethod(&quot;SetTestContext&quot;);</span>
 <span class='same'>    object[] setTextContextParameters = new object[1];</span>
-<span class='diff'>    // New comment</span>
 <span class='same'>    setTextContextParameters[0] = testContext;</span>
 <span class='same'>    methodInfo.Invoke(methodInstance, setTextContextParameters);</span>
-<span class='same'>    loadedInstances.Add(action.TestClass, methodInstance);</span>
+<span class='diff'>    loadedInstances.Add(action.TestClass, methodInstance);</span>
 <span class='same'>}</span>
 <span class='same'>else</span>
 <span class='same'>{</span>
@@ -310,41 +308,41 @@ public static TestItem.TemplateItemsDefinition UpdateTemplatesRunTimeValues(Test
                 Code = @"
 public static List<TestItem.Action> UpdateActionsRunTimeValues(List<TestItem.Action> templateDefintion, TestContext testContext)
 {
-XmlSerializer s = new XmlSerializer(typeof(List<TestItem.Action>));
+    XmlSerializer s = new XmlSerializer(typeof(List<TestItem.Action>));
 
-using (StringWriter outStream = new StringWriter())
-{
-    // Here are some reordered lines
-    int j = 5 * 6;
-    int i = 3 * 5;
-    // This is an added comment
-    s.Serialize(outStream, templateDefintion);
-    string input = outStream.ToString();
-    input = ReplaceRunTimeValues(input, testContext, ref s);
-    using (StringReader rdr = new StringReader(input))
+    using (StringWriter outStream = new StringWriter())
     {
-        templateDefintion = (List<TestItem.Action>)s.Deserialize(rdr);
+        // Here are some reordered lines
+        int j = 5 * 6;
+        int i = 3 * 5;
+        // This is an added comment
+        s.Serialize(outStream, templateDefintion);
+        string input = outStream.ToString();
+        input = ReplaceRunTimeValues(input, testContext, ref s);
+        using (StringReader rdr = new StringReader(input))
+        {
+            templateDefintion = (List<TestItem.Action>)s.Deserialize(rdr);
+        }
     }
-}
-return templateDefintion;
+    return templateDefintion;
 }",
                 CodeHtml = @"
-<span class='same'>public static List<TestItem.Action> UpdateActionsRunTimeValues(List<TestItem.Action> templateDefintion, TestContext testContext)</span>
+<span class='diff'>public static List&lt;TestItem.Action&gt; UpdateActionsRunTimeValues(List&lt;TestItem.Action&gt; templateDefintion, TestContext testContext)</span>
 <span class='same'>{</span>
-<span class='same'>    XmlSerializer s = new XmlSerializer(typeof(List<TestItem.Action>));</span>
+<span class='diff'>    XmlSerializer s = new XmlSerializer(typeof(List&lt;TestItem.Action&gt;));</span>
 <span class='same'></span>
 <span class='same'>    using (StringWriter outStream = new StringWriter())</span>
 <span class='same'>    {</span>
 <span class='same'>        // Here are some reordered lines</span>
 <span class='same'>        int j = 5 * 6;</span>
 <span class='same'>        int i = 3 * 5;</span>
-<span class='diff'>        // This is an added line</span>
+<span class='diff'>        // This is an added comment</span>
 <span class='same'>        s.Serialize(outStream, templateDefintion);</span>
 <span class='same'>        string input = outStream.ToString();</span>
-<span class='same'>        input = ReplaceRunTimeValues(input, testContext, ref s);</span>
+<span class='diff'>        input = ReplaceRunTimeValues(input, testContext, ref s);</span>
 <span class='same'>        using (StringReader rdr = new StringReader(input))</span>
 <span class='same'>        {</span>
-<span class='same'>            templateDefintion = (List<TestItem.Action>)s.Deserialize(rdr);</span>
+<span class='diff'>            templateDefintion = (List&lt;TestItem.Action&gt;)s.Deserialize(rdr);</span>
 <span class='same'>        }</span>
 <span class='same'>    }</span>
 <span class='same'>    return templateDefintion;</span>
@@ -358,28 +356,28 @@ return templateDefintion;
                 Code = @"
 public static TestItem.TemplateItemsDefinition UpdateTemplatesRunTimeValues(TestItem.TemplateItemsDefinition templateDefintion, TestContext testContext)
 {
-XmlSerializer s = new XmlSerializer(typeof(TestItem.TemplateItemsDefinition));
+    XmlSerializer s = new XmlSerializer(typeof(TestItem.TemplateItemsDefinition));
 
-using (StringWriter outStream = new StringWriter())
-{
-    // Here are some reordered lines
-    int i = 3 * 5;
-    int j = 5 * 6;
-    s.Serialize(outStream, templateDefintion);
-    string input = outStream.ToString();
-    // Here I have removed a line
-    using (StringReader rdr = new StringReader(input))
+    using (StringWriter outStream = new StringWriter())
     {
-        templateDefintion = (TestItem.TemplateItemsDefinition)s.Deserialize(rdr);
+        // Here are some reordered lines
+        int i = 3 * 5;
+        int j = 5 * 6;
+        s.Serialize(outStream, templateDefintion);
+        string input = outStream.ToString();
+        // Here I have removed a line
+        using (StringReader rdr = new StringReader(input))
+        {
+            templateDefintion = (TestItem.TemplateItemsDefinition)s.Deserialize(rdr);
+        }
     }
-}
 
-return templateDefintion;
+    return templateDefintion;
 }",
                 CodeHtml = @"
-<span class='same'>public static List<TestItem.Action> UpdateActionsRunTimeValues(List<TestItem.Action> templateDefintion, TestContext testContext)</span>
+<span class='diff'>public static TestItem.TemplateItemsDefinition UpdateTemplatesRunTimeValues(TestItem.TemplateItemsDefinition templateDefintion, TestContext testContext)</span>
 <span class='same'>{</span>
-<span class='same'>    XmlSerializer s = new XmlSerializer(typeof(List<TestItem.Action>));</span>
+<span class='diff'>    XmlSerializer s = new XmlSerializer(typeof(TestItem.TemplateItemsDefinition));</span>
 <span class='same'></span>
 <span class='same'>    using (StringWriter outStream = new StringWriter())</span>
 <span class='same'>    {</span>
@@ -391,9 +389,10 @@ return templateDefintion;
 <span class='diff'>        // Here I have removed a line</span>
 <span class='same'>        using (StringReader rdr = new StringReader(input))</span>
 <span class='same'>        {</span>
-<span class='same'>            templateDefintion = (List<TestItem.Action>)s.Deserialize(rdr);</span>
+<span class='diff'>            templateDefintion = (TestItem.TemplateItemsDefinition)s.Deserialize(rdr);</span>
 <span class='same'>        }</span>
 <span class='same'>    }</span>
+<span class='same'></span>
 <span class='same'>    return templateDefintion;</span>
 <span class='same'>}</span>"
             }
