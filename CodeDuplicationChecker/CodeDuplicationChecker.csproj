@@ -56,5 +56,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CountMatrixCloneDetection\CountMatrixCloneDetection.csproj">
+      <Project>{249ddc98-b1c8-4d4f-a063-20be510d022e}</Project>
+      <Name>CountMatrixCloneDetection</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

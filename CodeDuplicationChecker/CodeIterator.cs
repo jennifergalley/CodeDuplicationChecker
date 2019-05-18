@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CountMatrixCloneDetection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -59,16 +60,9 @@ namespace CodeDuplicationChecker
             {
                 Console.WriteLine("Beginning execution of CheckFileForDuplicates");
             }
-
-            var file = File.ReadAllText(filename);
             var results = new DuplicationResults();
 
-            //
-            // TO BE WRITTEN
-            //
-            // Loop through file contents somehow
-            // Build result object
-            //
+            var cmcdResults = CMCD.Run(filename);
 
             if (verbose)
             {
@@ -91,6 +85,7 @@ namespace CodeDuplicationChecker
             }
 
             var results = new DuplicationResults();
+            var cmcdResults = CMCD.Run(dir);
 
             //
             // TO BE WRITTEN
