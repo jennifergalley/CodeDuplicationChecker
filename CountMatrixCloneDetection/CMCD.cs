@@ -148,6 +148,10 @@ namespace CountMatrixCloneDetection
             var mapping = Bipartite.GetBipartiteMatrix(methodAMatrix, methodBMatrix);
             var d2 = EuclideanDistance(methodAMatrix, methodBMatrix, mapping);
 
+            // Normalize Euclidean Distance by the number of variables
+            d2/=maxLen;
+            Console.WriteLine(d2);
+
             return d2;
         }
 
