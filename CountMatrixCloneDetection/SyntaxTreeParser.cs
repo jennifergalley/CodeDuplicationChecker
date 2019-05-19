@@ -193,7 +193,7 @@ namespace Dedup
 
             return variablesCount;
         }
-        
+
         public static IEnumerable<SyntaxNode> GetMethodsFromClassNode(SyntaxNode syntaxNode)
         {
             var methods = new List<SyntaxNode>();
@@ -452,7 +452,15 @@ namespace Dedup
             var tokenNode = current.GetFirstToken();
             if (current.Kind() == SyntaxKind.Parameter)
             {
-                tokenNode = current.GetLastToken();
+                var childNodes = current.ChildNodes();
+                foreach(var c in childNodes)
+                {
+                    if(c.Kind()== SyntaxKind.IdentifierToken)
+                    {
+                        tokenNode = current.GetLastToken();
+                        break;
+                    }
+                } 
             }
 
             var currentScope = GetScope(current);
@@ -508,7 +516,7 @@ namespace Dedup
 
         private static SyntaxNode GetScope(SyntaxNode current)
         {
-            if (current.Parent!= null && current.Parent.Kind() == SyntaxKind.ForEachStatement)
+            if (current.Parent != null && current.Parent.Kind() == SyntaxKind.ForEachStatement)
             {
                 return current.Parent;
             }
