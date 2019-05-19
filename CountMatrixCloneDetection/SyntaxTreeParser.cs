@@ -452,7 +452,15 @@ namespace Dedup
             var tokenNode = current.GetFirstToken();
             if (current.Kind() == SyntaxKind.Parameter)
             {
-                tokenNode = current.GetLastToken();
+                var childNodes = current.ChildNodes();
+                foreach (var c in childNodes)
+                {
+                    if (c.Kind() == SyntaxKind.IdentifierToken)
+                    {
+                        tokenNode = current.GetLastToken();
+                        break;
+                    }
+                }
             }
 
             var currentScope = GetScope(current);
