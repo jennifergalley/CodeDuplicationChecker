@@ -96,6 +96,5 @@ namespace Dedup
 
             return list.ToArray();
         }
-
     }
 }

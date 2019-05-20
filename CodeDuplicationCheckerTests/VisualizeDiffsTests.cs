@@ -1,39 +1,40 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CodeDuplicationChecker;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 namespace CodeDuplicationChecker.Tests
 {
     [TestClass()]
-    public class DuplicationResultsTests
+    public class VisualizeDiffsTests
     {
         [TestMethod()]
-        public void GenerateResultsFileTest1()
+        public void GenerateResultsFile_Type1_Test()
         {
             // Act
-            VisualizeDiffs.GenerateResultsFile(type1, false);
+            var success = VisualizeDiffs.GenerateResultsFile(type1, false);
 
             // Assert
-
+            Assert.IsTrue(success);
         }
 
         [TestMethod()]
-        public void GenerateResultsFileTest2()
+        public void GenerateResultsFile_Type2_Test()
         {
             // Act
-            VisualizeDiffs.GenerateResultsFile(type2, false);
+            var success = VisualizeDiffs.GenerateResultsFile(type2, false);
 
             // Assert
-
+            Assert.IsTrue(success);
         }
 
         [TestMethod()]
-        public void GenerateResultsFileTest3()
+        public void GenerateResultsFile_Type3_Test()
         {
             // Act
-            VisualizeDiffs.GenerateResultsFile(type3, false);
+            var success = VisualizeDiffs.GenerateResultsFile(type3, false);
 
             // Assert
-
+            Assert.IsTrue(success);
         }
 
         [TestMethod()]
@@ -84,7 +85,6 @@ namespace CodeDuplicationChecker.Tests
         public void GenerateCodeHTML_Type3_Test()
         {
             // Arrange
-            // Arrange
             var copy = new List<DuplicateInstance>();
             foreach (var instance in type3)
             {
@@ -100,6 +100,54 @@ namespace CodeDuplicationChecker.Tests
                 var expected = type3[i].CodeHtml.Trim();
                 var actual = copy[i].CodeHtml.Trim();
                 Assert.AreEqual(expected, actual, $"Instance {i} failed");
+            }
+        }
+
+        [TestMethod()]
+        public void SplitCodeNewlines_Type1_Test()
+        {
+            foreach (var duplicate in type1)
+            {
+                // Arrange
+                var code = duplicate.Code;
+
+                // Act
+                var result = VisualizeDiffs.SplitCodeNewlines(code);
+
+                // Assert
+                Assert.IsTrue(result.Count > 0);
+            }
+        }
+
+        [TestMethod()]
+        public void SplitCodeNewlines_Type2_Test()
+        {
+            foreach (var duplicate in type2)
+            {
+                // Arrange
+                var code = duplicate.Code;
+
+                // Act
+                var result = VisualizeDiffs.SplitCodeNewlines(code);
+
+                // Assert
+                Assert.IsTrue(result.Count > 0);
+            }
+        }
+
+        [TestMethod()]
+        public void SplitCodeNewlines_Type3_Test()
+        {
+            foreach (var duplicate in type3)
+            {
+                // Arrange
+                var code = duplicate.Code;
+
+                // Act
+                var result = VisualizeDiffs.SplitCodeNewlines(code);
+
+                // Assert
+                Assert.IsTrue(result.Count > 0);
             }
         }
 
