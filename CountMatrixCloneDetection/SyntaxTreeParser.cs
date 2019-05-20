@@ -8,6 +8,11 @@ namespace Dedup
 {
     public static class SyntaxTreeParser
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="methodNode"></param>
+        /// <returns></returns>
         public static List<VariableName> GetVariablesCount(SyntaxNode methodNode)
         {
             var variablesCount = new List<VariableName>();
@@ -193,7 +198,12 @@ namespace Dedup
 
             return variablesCount;
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="syntaxNode"></param>
+        /// <returns></returns>
         public static IEnumerable<SyntaxNode> GetMethodsFromClassNode(SyntaxNode syntaxNode)
         {
             var methods = new List<SyntaxNode>();
@@ -207,6 +217,11 @@ namespace Dedup
             return methods;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="syntaxNode"></param>
+        /// <returns></returns>
         public static IEnumerable<SyntaxNode> GetMethodsFromNamespace(SyntaxNode syntaxNode)
         {
             var methods = new List<SyntaxNode>();
@@ -220,7 +235,14 @@ namespace Dedup
             return methods;
         }
 
-        private static bool IsDefinedByOperations(SyntaxNode node, SyntaxKind first, SyntaxKind second = SyntaxKind.UnknownAccessorDeclaration)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        internal static bool IsDefinedByOperations(SyntaxNode node, SyntaxKind first, SyntaxKind second = SyntaxKind.UnknownAccessorDeclaration)
         {
             if (node == null)
             {
@@ -245,7 +267,13 @@ namespace Dedup
             return false;
         }
 
-        private static bool IsDefinedByOperationsWithKind(SyntaxNode node, Func<SyntaxKind, bool> kindEvaluate)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="kindEvaluate"></param>
+        /// <returns></returns>
+        internal static bool IsDefinedByOperationsWithKind(SyntaxNode node, Func<SyntaxKind, bool> kindEvaluate)
         {
             if (node == null)
             {
@@ -290,7 +318,14 @@ namespace Dedup
             return false;
         }
 
-        private static bool IsAssignedByOperations(SyntaxNode node, SyntaxKind first, SyntaxKind second = SyntaxKind.UnknownAccessorDeclaration)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        internal static bool IsAssignedByOperations(SyntaxNode node, SyntaxKind first, SyntaxKind second = SyntaxKind.UnknownAccessorDeclaration)
         {
             if (node?.Parent == null || !IsAssignmentExpressionKind(node.Parent) && node.Parent.ChildNodes().First() != node)
             {
@@ -308,7 +343,13 @@ namespace Dedup
             return false;
         }
 
-        private static bool IsAssignedByOperationsWithKind(SyntaxNode node, Func<SyntaxKind, bool> kindEvaluate)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="kindEvaluate"></param>
+        /// <returns></returns>
+        internal static bool IsAssignedByOperationsWithKind(SyntaxNode node, Func<SyntaxKind, bool> kindEvaluate)
         {
             if (node?.Parent == null || !IsAssignmentExpressionKind(node.Parent) && node.Parent.ChildNodes().First() == node)
             {
@@ -353,7 +394,12 @@ namespace Dedup
             return false;
         }
 
-        private static int GetLoopStatementDepth(SyntaxNode node)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        internal static int GetLoopStatementDepth(SyntaxNode node)
         {
             if (node == null)
             {
@@ -378,7 +424,12 @@ namespace Dedup
             return depth;
         }
 
-        private static int GetMemberAccessDepth(SyntaxNode node)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        internal static int GetMemberAccessDepth(SyntaxNode node)
         {
             if (node?.Parent == null)
             {
@@ -400,7 +451,12 @@ namespace Dedup
             return depth;
         }
 
-        private static bool IsInStatement(SyntaxNode node)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        internal static bool IsInStatement(SyntaxNode node)
         {
             if (node == null)
             {
@@ -421,14 +477,26 @@ namespace Dedup
             return false;
         }
 
-        private static VariableName GetSingleVariable(IEnumerable<VariableName> dict, SyntaxNode top)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dict"></param>
+        /// <param name="top"></param>
+        /// <returns></returns>
+        internal static VariableName GetSingleVariable(IEnumerable<VariableName> dict, SyntaxNode top)
         {
             var variables = dict.Where(e => e.Name == top.GetFirstToken().Text).ToList();
             var singleVariable = variables.Count == 1 ? variables[0] : FindVariableName(variables, top);
             return singleVariable;
         }
 
-        private static VariableName FindVariableName(IList<VariableName> variableNames, SyntaxNode node)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="variableNames"></param>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        internal static VariableName FindVariableName(IList<VariableName> variableNames, SyntaxNode node)
         {
             var temp = node;
             while (temp.Parent != null)
@@ -447,7 +515,12 @@ namespace Dedup
             return null;
         }
 
-        private static void PopulateDeclaration(SyntaxNode current, ICollection<VariableName> dict)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="dict"></param>
+        internal static void PopulateDeclaration(SyntaxNode current, ICollection<VariableName> dict)
         {
             var tokenNode = current.GetFirstToken();
             if (current.Kind() == SyntaxKind.Parameter)
@@ -476,7 +549,12 @@ namespace Dedup
             }
         }
 
-        private static bool IsAssignmentExpressionKind(SyntaxNode node)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        internal static bool IsAssignmentExpressionKind(SyntaxNode node)
         {
             if (node == null)
             {
@@ -498,7 +576,12 @@ namespace Dedup
                    || kind == SyntaxKind.LeftShiftAssignmentExpression;
         }
 
-        private static bool IsLiteralExpressionKind(SyntaxKind kind)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+        internal static bool IsLiteralExpressionKind(SyntaxKind kind)
         {
             return kind == SyntaxKind.NullLiteralExpression
                    || kind == SyntaxKind.StringLiteralExpression
@@ -509,12 +592,22 @@ namespace Dedup
                    || kind == SyntaxKind.CharacterLiteralExpression;
         }
 
-        private static bool IsIdentifierNameKind(SyntaxKind kind)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+        internal static bool IsIdentifierNameKind(SyntaxKind kind)
         {
             return kind == SyntaxKind.IdentifierName;
         }
 
-        private static SyntaxNode GetScope(SyntaxNode current)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="current"></param>
+        /// <returns></returns>
+        internal static SyntaxNode GetScope(SyntaxNode current)
         {
             if (current.Parent!= null && current.Parent.Kind() == SyntaxKind.ForEachStatement)
             {

@@ -4,13 +4,25 @@ namespace Dedup
 {
     public class Bipartite
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
         public static int[] GetBipartiteMatrix(double[,] u, double[,] v)
         {
             var p = CreateBipartiteMatrix(u, v);
             return HungarianAlgorithm.HungarianAlgorithm.FindAssignments(p);
         }
-        
-        private static int[,] CreateBipartiteMatrix(double[,] u, double[,] v)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        internal static int[,] CreateBipartiteMatrix(double[,] u, double[,] v)
         {
             var rowLen = u.GetLength(0);
             var colLength = u.GetLength(1);

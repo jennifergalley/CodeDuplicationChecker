@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CountMatrixCloneDetection
 {
@@ -15,23 +13,24 @@ namespace CountMatrixCloneDetection
         /// <summary>
         /// Method to run the CMCD algorithm
         /// </summary>
-        public static List<CMDCDuplicateResult> Run(string DirectoryPath)
+        public static List<CMCDDuplicateResult> Run(string DirectoryPath)
         {
-            var comparisionResults = new List<CMDCDuplicateResult>();
+            var comparisonResults = new List<CMCDDuplicateResult>();
+
             try
             {
-                var allMethods = new List<CMDCMethod>();
+                var allMethods = new List<CMCDMethod>();
                 var files = new List<string>();
                 FileAttributes attr = File.GetAttributes(DirectoryPath);
+
                 if (attr.HasFlag(FileAttributes.Directory))
                 {
                     // it's a directory
                     files = Directory.GetFiles(DirectoryPath, "*.cs", SearchOption.AllDirectories).ToList();
-
                 }
                 foreach (var file in files)
                 {
-                    allMethods.AddRange(GetMethods(file).Select(c => new CMDCMethod() { FilePath = Path.GetFullPath(file),  FileName = Path.GetFileName(file), MethodNode = c }));
+                    allMethods.AddRange(GetMethods(file).Select(c => new CMCDMethod() { FilePath = Path.GetFullPath(file),  FileName = Path.GetFileName(file), MethodNode = c }));
                 }
 
                 foreach (var methodA in allMethods)
@@ -41,16 +40,16 @@ namespace CountMatrixCloneDetection
                         try
                         {
                             var compareResult = Compare(methodA.MethodNode, methodB.MethodNode);
-                            comparisionResults.Add(new CMDCDuplicateResult()
+                            comparisonResults.Add(new CMCDDuplicateResult()
                             {
-                                MethodA = new CMDCMethodInfo() {
+                                MethodA = new CMCDMethodInfo() {
                                     FileName = methodA.FileName,
                                     FilePath = Path.GetFullPath(methodA.FilePath),
                                     MethodText = methodA.MethodNode.GetText().ToString(),
                                     EndLineNumber = methodA.MethodNode.FullSpan.End,
                                     StartLineNumber = methodA.MethodNode.FullSpan.Start
                                 },
-                                MethodB = new CMDCMethodInfo() {
+                                MethodB = new CMCDMethodInfo() {
                                     FileName = methodB.FileName,
                                     FilePath = Path.GetFullPath(methodB.FilePath),
                                     MethodText = methodB.MethodNode.GetText().ToString(),
@@ -72,7 +71,7 @@ namespace CountMatrixCloneDetection
                 Console.WriteLine(ex.ToString());
             }
 
-            return comparisionResults;
+            return comparisonResults;
         }
 
         /// <summary>
@@ -80,9 +79,10 @@ namespace CountMatrixCloneDetection
         /// </summary>
         /// <param name="filePath">The file path</param>
         /// <returns>List of methods</returns>
-        private static List<SyntaxNode> GetMethods(string filePath)
+        internal static List<SyntaxNode> GetMethods(string filePath)
         {
             var methods = new List<SyntaxNode>();
+
             if (File.Exists(filePath))
             {
                 var programText = File.ReadAllText(filePath);
@@ -126,7 +126,7 @@ namespace CountMatrixCloneDetection
         /// <param name="methodA">Method A</param>
         /// <param name="methodB">Methods B</param>
         /// <returns>Comparision report between these two methods</returns>
-        private static double Compare(SyntaxNode methodA, SyntaxNode methodB)
+        internal static double Compare(SyntaxNode methodA, SyntaxNode methodB)
         {
             var MethodAvariablesCount = SyntaxTreeParser.GetVariablesCount(methodA);
             var methodBVariablesCount = SyntaxTreeParser.GetVariablesCount(methodB);
@@ -134,6 +134,7 @@ namespace CountMatrixCloneDetection
             double[,] methodAMatrix = GetMatrix(MethodAvariablesCount);
             double[,] methodBMatrix = GetMatrix(methodBVariablesCount);
             var maxLen = methodAMatrix.GetLength(0);
+
             if (methodAMatrix.GetLength(0) < methodBMatrix.GetLength(0))
             {
                 methodAMatrix = ZeroPadMatrix(methodAMatrix, methodBMatrix.GetLength(0) - methodAMatrix.GetLength(0));
@@ -155,10 +156,17 @@ namespace CountMatrixCloneDetection
             return d2;
         }
 
-        private static double CalculateSimilarityDistance(double[,] a, double[,] b)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        internal static double CalculateSimilarityDistance(double[,] a, double[,] b)
         {
             var maxlength = Math.Max(a.GetLength(0), b.GetLength(0));
             const int smallLen = 7;
+
             if (maxlength > 2 * a.GetLength(0) || maxlength > 2 * b.GetLength(0) || Math.Abs(a.GetLength(0) - b.GetLength(0)) >= 7)
             {
                 return 1000;
@@ -172,10 +180,17 @@ namespace CountMatrixCloneDetection
             return EuclideanDistance(a, b);
         }
 
-        private static double EuclideanDistance(double[,] a, double[,] b)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        internal static double EuclideanDistance(double[,] a, double[,] b)
         {
             var smaller = a.GetLength(0) < b.GetLength(0) ? a : b;
             var sum = 0.0;
+
             for (var i = 0; i < smaller.GetLength(0); i++)
             {
                 for (var j = 0; j < smaller.GetLength(1); j++)
@@ -187,10 +202,18 @@ namespace CountMatrixCloneDetection
             return Math.Sqrt(sum);
         }
 
-        private static double EuclideanDistance(double[,] a, double[,] b, int[] mapping)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="mapping"></param>
+        /// <returns></returns>
+        internal static double EuclideanDistance(double[,] a, double[,] b, int[] mapping)
         {
             var smaller = a.GetLength(0) < b.GetLength(0) ? a : b;
             var sum = 0.0;
+
             for (var i = 0; i < smaller.GetLength(0); i++)
             {
                 for (var j = 0; j < smaller.GetLength(1); j++)
@@ -202,7 +225,12 @@ namespace CountMatrixCloneDetection
             return Math.Sqrt(sum);
         }
 
-        private static double[,] GetMatrix(IReadOnlyList<VariableName> variables)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="variables"></param>
+        /// <returns></returns>
+        internal static double[,] GetMatrix(IReadOnlyList<VariableName> variables)
         {
             if (variables == null || variables.Count <= 0)
             {
@@ -223,7 +251,13 @@ namespace CountMatrixCloneDetection
             return array;
         }
 
-        private static double[,] ZeroPadMatrix(double[,] original, int numberOfRows)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="original"></param>
+        /// <param name="numberOfRows"></param>
+        /// <returns></returns>
+        internal static double[,] ZeroPadMatrix(double[,] original, int numberOfRows)
         {
             if (original == null || numberOfRows <= 0)
             {
@@ -234,70 +268,5 @@ namespace CountMatrixCloneDetection
             Array.Copy(original, 0, result, 0, original.Length);
             return result;
         }
-
-    }
-
-    /// <summary>
-    /// Class to represent a CMDC duplicate result
-    /// </summary>
-    public class CMDCDuplicateResult
-    {
-        public CMDCMethodInfo MethodA { get; set; }
-
-        public CMDCMethodInfo MethodB { get; set; }
-
-        public double Score { get; set; }
-    }
-
-    /// <summary>
-    /// class to represent CMDC method info
-    /// </summary>
-    public class CMDCMethodInfo
-    {
-        /// <summary>
-        /// Gets or sets the File name
-        /// </summary>
-        public string FileName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the File paths
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the method text
-        /// </summary>
-        public string MethodText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the start line number
-        /// </summary>
-        public int StartLineNumber { get; set; }
-
-        /// <summary>
-        /// Gets or sets the end line number
-        /// </summary>
-        public int EndLineNumber { get; set; }
-    }
-
-    /// <summary>
-    /// Class to represent CMDC 
-    /// </summary>
-    public class CMDCMethod
-    {
-        /// <summary>
-        /// Gets or sets file name
-        /// </summary>
-        public string FileName { get; set; }
-
-        /// <summary>
-        /// Gets or sets file path
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
-        /// Gets or sets method node
-        /// </summary>
-        public SyntaxNode MethodNode { get; set; }
     }
 }

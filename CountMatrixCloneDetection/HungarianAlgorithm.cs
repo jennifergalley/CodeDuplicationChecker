@@ -100,7 +100,15 @@ namespace HungarianAlgorithm
             return agentsTasks;
         }
 
-        private static int RunStep1(byte[,] masks, bool[] colsCovered, int w, int h)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masks"></param>
+        /// <param name="colsCovered"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        internal static int RunStep1(byte[,] masks, bool[] colsCovered, int w, int h)
         {
             if (masks == null)
                 throw new ArgumentNullException(nameof(masks));
@@ -130,7 +138,19 @@ namespace HungarianAlgorithm
 
             return 2;
         }
-        private static int RunStep2(int[,] costs, byte[,] masks, bool[] rowsCovered, bool[] colsCovered, int w, int h, ref Location pathStart)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="costs"></param>
+        /// <param name="masks"></param>
+        /// <param name="rowsCovered"></param>
+        /// <param name="colsCovered"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <param name="pathStart"></param>
+        /// <returns></returns>
+        internal static int RunStep2(int[,] costs, byte[,] masks, bool[] rowsCovered, bool[] colsCovered, int w, int h, ref Location pathStart)
         {
             if (costs == null)
                 throw new ArgumentNullException(nameof(costs));
@@ -165,7 +185,19 @@ namespace HungarianAlgorithm
                 }
             }
         }
-        private static int RunStep3(byte[,] masks, bool[] rowsCovered, bool[] colsCovered, int w, int h, Location[] path, Location pathStart)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masks"></param>
+        /// <param name="rowsCovered"></param>
+        /// <param name="colsCovered"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <param name="path"></param>
+        /// <param name="pathStart"></param>
+        /// <returns></returns>
+        internal static int RunStep3(byte[,] masks, bool[] rowsCovered, bool[] colsCovered, int w, int h, Location[] path, Location pathStart)
         {
             if (masks == null)
                 throw new ArgumentNullException(nameof(masks));
@@ -200,7 +232,17 @@ namespace HungarianAlgorithm
 
             return 1;
         }
-        private static int RunStep4(int[,] costs, bool[] rowsCovered, bool[] colsCovered, int w, int h)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="costs"></param>
+        /// <param name="rowsCovered"></param>
+        /// <param name="colsCovered"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        internal static int RunStep4(int[,] costs, bool[] rowsCovered, bool[] colsCovered, int w, int h)
         {
             if (costs == null)
                 throw new ArgumentNullException(nameof(costs));
@@ -226,7 +268,16 @@ namespace HungarianAlgorithm
             return 2;
         }
 
-        private static int FindMinimum(int[,] costs, bool[] rowsCovered, bool[] colsCovered, int w, int h)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="costs"></param>
+        /// <param name="rowsCovered"></param>
+        /// <param name="colsCovered"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        internal static int FindMinimum(int[,] costs, bool[] rowsCovered, bool[] colsCovered, int w, int h)
         {
             if (costs == null)
                 throw new ArgumentNullException(nameof(costs));
@@ -250,7 +301,15 @@ namespace HungarianAlgorithm
 
             return minValue;
         }
-        private static int FindStarInRow(byte[,] masks, int w, int row)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masks"></param>
+        /// <param name="w"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        internal static int FindStarInRow(byte[,] masks, int w, int row)
         {
             if (masks == null)
                 throw new ArgumentNullException(nameof(masks));
@@ -263,7 +322,15 @@ namespace HungarianAlgorithm
 
             return -1;
         }
-        private static int FindStarInColumn(byte[,] masks, int h, int col)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masks"></param>
+        /// <param name="h"></param>
+        /// <param name="col"></param>
+        /// <returns></returns>
+        internal static int FindStarInColumn(byte[,] masks, int h, int col)
         {
             if (masks == null)
                 throw new ArgumentNullException(nameof(masks));
@@ -276,7 +343,15 @@ namespace HungarianAlgorithm
 
             return -1;
         }
-        private static int FindPrimeInRow(byte[,] masks, int w, int row)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masks"></param>
+        /// <param name="w"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        internal static int FindPrimeInRow(byte[,] masks, int w, int row)
         {
             if (masks == null)
                 throw new ArgumentNullException(nameof(masks));
@@ -289,7 +364,17 @@ namespace HungarianAlgorithm
 
             return -1;
         }
-        private static Location FindZero(int[,] costs, bool[] rowsCovered, bool[] colsCovered, int w, int h)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="costs"></param>
+        /// <param name="rowsCovered"></param>
+        /// <param name="colsCovered"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        internal static Location FindZero(int[,] costs, bool[] rowsCovered, bool[] colsCovered, int w, int h)
         {
             if (costs == null)
                 throw new ArgumentNullException(nameof(costs));
@@ -311,7 +396,14 @@ namespace HungarianAlgorithm
 
             return new Location(-1, -1);
         }
-        private static void ConvertPath(byte[,] masks, Location[] path, int pathLength)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masks"></param>
+        /// <param name="path"></param>
+        /// <param name="pathLength"></param>
+        internal static void ConvertPath(byte[,] masks, Location[] path, int pathLength)
         {
             if (masks == null)
                 throw new ArgumentNullException(nameof(masks));
@@ -331,7 +423,14 @@ namespace HungarianAlgorithm
                 }
             }
         }
-        private static void ClearPrimes(byte[,] masks, int w, int h)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="masks"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        internal static void ClearPrimes(byte[,] masks, int w, int h)
         {
             if (masks == null)
                 throw new ArgumentNullException(nameof(masks));
@@ -345,7 +444,15 @@ namespace HungarianAlgorithm
                 }
             }
         }
-        private static void ClearCovers(bool[] rowsCovered, bool[] colsCovered, int w, int h)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rowsCovered"></param>
+        /// <param name="colsCovered"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        internal static void ClearCovers(bool[] rowsCovered, bool[] colsCovered, int w, int h)
         {
             if (rowsCovered == null)
                 throw new ArgumentNullException(nameof(rowsCovered));
@@ -364,7 +471,7 @@ namespace HungarianAlgorithm
             }
         }
 
-        private struct Location
+        internal struct Location
         {
             internal readonly int row;
             internal readonly int column;
