@@ -3,7 +3,7 @@ using System.Linq;
 using CountMatrixCloneDetection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeDuplicationCheckerTests
+namespace CodeDuplicationChecker.Tests
 {
     [TestClass]
     public class CMCDFunctionalTests
