@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 
-namespace Dedup
+namespace CountMatrixCloneDetection
 {
     public class VariableName
     {

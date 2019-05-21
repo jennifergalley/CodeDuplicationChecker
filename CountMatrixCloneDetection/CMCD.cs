@@ -1,5 +1,4 @@
-﻿using Dedup;
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,35 @@ namespace CountMatrixCloneDetection
 {
     public static class CMCD
     {
+        /// <summary>
+        /// If the methods are completely different according heuristic, this will be the default score.
+        /// </summary>
+        private const double CompletelyDifferentDefaultScore = 1000.0;
+
+        /// <summary>
+        /// If the number of nodes difference is greater than this number on each level of abstract syntax tree, the method
+        /// will be evaluated as different.
+        /// </summary>
+        private const int MaxAllowedNodePerLevelDifference = 3;
+
+        /// <summary>
+        /// If the total number of node in abstract syntax tree is greater than this value, the method
+        /// will be evaluated as different.
+        /// </summary>
+        private const int MaxAllowedTotalDifference = 10;
+
+        /// <summary>
+        /// If the total variable difference between two method is greater than this value, the method
+        /// will be evaluated as different.
+        /// </summary>
+        private const int MaxAllowedVariableDifference = 7;
+
+        /// <summary>
+        /// If the number of variables is less or equal this number, the distance between will not be normalized, instead we
+        /// used the absolute difference as score.
+        /// </summary>
+        private const int MinimumVariableLengthToNormalize = 5;
+
         /// <summary>
         /// Method to run the CMCD algorithm
         /// </summary>
@@ -30,7 +58,7 @@ namespace CountMatrixCloneDetection
                 }
                 foreach (var file in files)
                 {
-                    allMethods.AddRange(GetMethods(file).Select(c => new CMCDMethod() { FilePath = Path.GetFullPath(file),  FileName = Path.GetFileName(file), MethodNode = c }));
+                    allMethods.AddRange(GetMethods(file).Select(c => new CMCDMethod() { FilePath = Path.GetFullPath(file), FileName = Path.GetFileName(file), MethodNode = c }));
                 }
 
                 foreach (var methodA in allMethods)
@@ -42,14 +70,16 @@ namespace CountMatrixCloneDetection
                             var compareResult = Compare(methodA.MethodNode, methodB.MethodNode);
                             comparisonResults.Add(new CMCDDuplicateResult()
                             {
-                                MethodA = new CMCDMethodInfo() {
+                                MethodA = new CMCDMethodInfo()
+                                {
                                     FileName = methodA.FileName,
                                     FilePath = Path.GetFullPath(methodA.FilePath),
                                     MethodText = methodA.MethodNode.GetText().ToString(),
                                     EndLineNumber = methodA.MethodNode.FullSpan.End,
                                     StartLineNumber = methodA.MethodNode.FullSpan.Start
                                 },
-                                MethodB = new CMCDMethodInfo() {
+                                MethodB = new CMCDMethodInfo()
+                                {
                                     FileName = methodB.FileName,
                                     FilePath = Path.GetFullPath(methodB.FilePath),
                                     MethodText = methodB.MethodNode.GetText().ToString(),
@@ -66,7 +96,7 @@ namespace CountMatrixCloneDetection
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
@@ -128,10 +158,19 @@ namespace CountMatrixCloneDetection
         /// <returns>Comparision report between these two methods</returns>
         internal static double Compare(SyntaxNode methodA, SyntaxNode methodB)
         {
-            var MethodAvariablesCount = SyntaxTreeParser.GetVariablesCount(methodA);
-            var methodBVariablesCount = SyntaxTreeParser.GetVariablesCount(methodB);
+            var methodAVariablesCount = SyntaxTreeParser.GetVariablesCount(methodA, out var methodANodeCountPerLevel);
+            var methodBVariablesCount = SyntaxTreeParser.GetVariablesCount(methodB, out var methodBNodeCountPerLevel);
 
-            double[,] methodAMatrix = GetMatrix(MethodAvariablesCount);
+            var shouldRunClonedDetection = methodANodeCountPerLevel.Count > methodBNodeCountPerLevel.Count ?
+                ShouldRunCountMatrixClonedDetection(methodANodeCountPerLevel, methodBNodeCountPerLevel) :
+                ShouldRunCountMatrixClonedDetection(methodBNodeCountPerLevel, methodANodeCountPerLevel);
+
+            if (!shouldRunClonedDetection)
+            {
+                return CompletelyDifferentDefaultScore;
+            }
+
+            double[,] methodAMatrix = GetMatrix(methodAVariablesCount);
             double[,] methodBMatrix = GetMatrix(methodBVariablesCount);
             var maxLen = methodAMatrix.GetLength(0);
 
@@ -149,9 +188,16 @@ namespace CountMatrixCloneDetection
             var mapping = Bipartite.GetBipartiteMatrix(methodAMatrix, methodBMatrix);
             var d2 = EuclideanDistance(methodAMatrix, methodBMatrix, mapping);
 
-            // Normalize Euclidean Distance by the number of variables
-            d2/=maxLen;
-            Console.WriteLine(d2);
+            if (maxLen > MinimumVariableLengthToNormalize)
+            {
+                // Normalize Euclidean Distance by the number of variables
+                d2 /= maxLen;
+            }
+
+            if (d2 > 0)
+            {
+                Console.WriteLine(d2);
+            }
 
             return d2;
         }
@@ -181,7 +227,8 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// Compute the flat Euclidean distance assuming that each rows are
+        /// mapped 1-to-1
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -203,7 +250,7 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// Compute the Euclidean distance with row mappings
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -226,7 +273,7 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// Convert list variables into 2d array
         /// </summary>
         /// <param name="variables"></param>
         /// <returns></returns>
@@ -267,6 +314,36 @@ namespace CountMatrixCloneDetection
             var result = new double[original.GetLength(0) + numberOfRows, original.GetLength(1)];
             Array.Copy(original, 0, result, 0, original.Length);
             return result;
+        }
+
+        /// <summary>
+        /// This method runs heuristics and determine if is necessary to run clone detection algorithm
+        /// or evaluate them methods as different.
+        /// </summary>
+        /// <param name="largerNodeCountPerLevel"></param>
+        /// <param name="smallerNodeCountPerLevel"></param>
+        /// <returns></returns>
+        private static bool ShouldRunCountMatrixClonedDetection(IReadOnlyDictionary<int, int> largerNodeCountPerLevel, IReadOnlyDictionary<int, int> smallerNodeCountPerLevel)
+        {
+            if (largerNodeCountPerLevel.Count >= 2 * smallerNodeCountPerLevel.Count ||
+                Math.Abs(largerNodeCountPerLevel.Count - smallerNodeCountPerLevel.Count) >= MaxAllowedVariableDifference)
+            {
+                return false;
+            }
+
+            if (smallerNodeCountPerLevel.Any(nodeCount => Math.Abs(nodeCount.Value - largerNodeCountPerLevel[nodeCount.Key]) >
+                                                          MaxAllowedNodePerLevelDifference))
+            {
+                return false;
+            }
+
+
+            if (Math.Abs(largerNodeCountPerLevel.Sum(e => e.Value) - smallerNodeCountPerLevel.Sum(e => e.Value)) > MaxAllowedTotalDifference)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

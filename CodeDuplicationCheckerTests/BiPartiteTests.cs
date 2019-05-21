@@ -1,5 +1,5 @@
 ﻿using System;
-using Dedup;
+using CountMatrixCloneDetection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeDuplicationChecker.Tests

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dedup
+namespace CountMatrixCloneDetection
 {
     class DupClass
     {
