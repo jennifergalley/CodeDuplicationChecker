@@ -8,17 +8,15 @@ namespace CodeDuplicationChecker
         /// <summary>
         /// Parses the command line inputs and starts the check.
         /// Possible options:
-        /// -f / --filename <string> : provides the filename to check for duplicates
-        /// -p / --filepath <string> : specifies a directory of files to check for duplicates
-        /// -r / --results <string> : specifies the directory for saving the results (output) file
-        /// -i / --instances <int> : the minimum number of instances of duplication to look for
+        /// -f / --filepath <string> : specifies a directory of files to check for duplicates
         /// -v / --verbose : indicates the program should produce verbose output
+        /// -h / --help : prints the help dialog
         /// </summary>
         /// <param name="args">the command-line arguments</param>
         static void Main(string[] args)
         {
             var numArgs = args.Count();
-            var filepath = string.Empty; // -p / --filepath
+            var filepath = string.Empty; // -f / --filepath
             var verbose = false; // -v / --verbose
             var blockOfExecution = string.Empty; // the block of execution which threw an exception, if any
 
@@ -36,7 +34,7 @@ namespace CodeDuplicationChecker
                     var arg = args[i];
                     switch (arg)
                     {
-                        case "-p":
+                        case "-f":
                         case "--filepath":
                             i++;
                             filepath = args[i];
@@ -82,8 +80,9 @@ namespace CodeDuplicationChecker
             Console.WriteLine();
             Console.WriteLine("Help dialog:");
             Console.WriteLine("Possible options:");
-            Console.WriteLine("-p / --filepath <string> : specifies a filename or directory of files to check for duplicates");
+            Console.WriteLine("-f / --filepath <string> [required] : specifies a filename or directory of files to check for duplicates");
             Console.WriteLine("-v / --verbose : indicates the program should produce verbose output");
+            Console.WriteLine("-h / --help : prints this help dialog");
         }
     }
 }
