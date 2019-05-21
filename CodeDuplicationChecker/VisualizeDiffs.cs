@@ -47,24 +47,37 @@ namespace CodeDuplicationChecker
 
                     foreach (var clone in codeDuplicates)
                     {
-                        w.WriteLine($"<h1>File: {clone.Filename}</h1>");
-                        w.WriteLine($"<h2>Start: {clone.StartLine}</h2>");
-                        w.WriteLine($"<h2>End: {clone.EndLine}</h2>");
+                        w.WriteLine("<div class='float'>");
+                        w.WriteLine($"<span class='filename'><b>File:</b> {clone.Filename}</span>");
+                        w.WriteLine("<br />");
+                        w.WriteLine($"<span class='line'><b>Start:</b> {clone.StartLine}</span>");
+                        w.WriteLine("<br />");
+                        w.WriteLine($"<span class='line'><b>End:</b> {clone.EndLine}</span>");
+                        w.WriteLine("<br />");
                         w.WriteLine($"<pre>{clone.CodeHtml}</pre>");
+                        w.WriteLine("</div>");
                     }
-
-                    w.WriteLine($"<hr>");
 
                     // Write the CSS!
                     w.WriteLine(@"
-                    <style>
-                        span.diff {
-                            background-color: yellow;
-                        }
-                        /*span.same {
-                            background-color: greenyellow;
-                        }*/
-                    </style>");
+<style>
+    span.diff {
+        background-color: yellow;
+    }
+    span.line 
+    {
+        font-size: 24px;
+    }
+    span.filename 
+    {
+        font-size: 36px;
+    }
+    div.float
+    {
+        float: left;
+        padding-left: 10px;
+    }
+</style>");
                 }
 
                 if (verbose) Console.WriteLine("Finishing execution of GenerateResultsFile");
