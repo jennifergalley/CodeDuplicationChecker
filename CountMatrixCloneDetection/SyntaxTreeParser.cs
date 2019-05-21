@@ -34,11 +34,6 @@ namespace Dedup
                         PopulateDeclaration(current, variablesCount);
                     }
 
-                    //if (kind == SyntaxKind.VariableDeclaration || kind == SyntaxKind.Parameter)
-                    //{
-                    //    PopulateDeclarationByType(current, variablesCount);
-                    //}
-
                     if (kind == SyntaxKind.VariableDeclarator)
                     {
                         var tokenNode = current.GetFirstToken();
