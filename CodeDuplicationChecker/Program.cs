@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeDuplicationChecker
 {
@@ -11,20 +8,15 @@ namespace CodeDuplicationChecker
         /// <summary>
         /// Parses the command line inputs and starts the check.
         /// Possible options:
-        /// -f / --filename <string> : provides the filename to check for duplicates
-        /// -p / --filepath <string> : specifies a directory of files to check for duplicates
-        /// -r / --results <string> : specifies the directory for saving the results (output) file
-        /// -i / --instances <int> : the minimum number of instances of duplication to look for
+        /// -f / --filepath <string> : specifies a directory of files to check for duplicates
         /// -v / --verbose : indicates the program should produce verbose output
+        /// -h / --help : prints the help dialog
         /// </summary>
         /// <param name="args">the command-line arguments</param>
         static void Main(string[] args)
         {
             var numArgs = args.Count();
-            var filename = string.Empty; // -f / --filename
-            var filepath = string.Empty; // -p / --filepath
-            var resultsPath = string.Empty; // -r / --results
-            var instances = 0; // -i / --instances
+            var filepath = string.Empty; // -f / --filepath
             var verbose = false; // -v / --verbose
             var blockOfExecution = string.Empty; // the block of execution which threw an exception, if any
 
@@ -43,28 +35,9 @@ namespace CodeDuplicationChecker
                     switch (arg)
                     {
                         case "-f":
-                        case "--filename":
-                            i++;
-                            filename = args[i];
-                            break;
-                        case "-p":
                         case "--filepath":
                             i++;
                             filepath = args[i];
-                            break;
-                        case "-r":
-                        case "--results":
-                            i++;
-                            resultsPath = args[i];
-                            break;
-                        case "-i":
-                        case "--instances":
-                            i++;
-                            bool success = int.TryParse(args[i], out instances);
-                            if (!success)
-                            {
-                                throw new ArgumentException("Invalid number provided for -i / --instances argument");
-                            }
                             break;
                         case "-v":
                         case "--verbose":
@@ -81,7 +54,7 @@ namespace CodeDuplicationChecker
 
                 // Run the scan
                 blockOfExecution = "parsing your file(s)";
-                var results = CodeIterator.CheckForDuplicates(filename, filepath, instances, verbose);
+                var results = CodeIterator.CheckForDuplicates(filepath, verbose);
 
                 // Generate the results
                 blockOfExecution = "generating the results file";
@@ -107,10 +80,9 @@ namespace CodeDuplicationChecker
             Console.WriteLine();
             Console.WriteLine("Help dialog:");
             Console.WriteLine("Possible options:");
-            Console.WriteLine("-f / --filename <string> : provides the filename to check for duplicates");
-            Console.WriteLine("-p / --filepath <string> : specifies a directory of files to check for duplicates");
-            Console.WriteLine("-i / --instances <int> : the minimum number of instances of duplication to look for");
+            Console.WriteLine("-f / --filepath <string> [required] : specifies a filename or directory of files to check for duplicates");
             Console.WriteLine("-v / --verbose : indicates the program should produce verbose output");
+            Console.WriteLine("-h / --help : prints this help dialog");
         }
     }
 }

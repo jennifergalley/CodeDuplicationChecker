@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
-using CountMatrixCloneDetection;
+﻿using CountMatrixCloneDetection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
-namespace CodeDuplicationCheckerTests
+namespace CodeDuplicationChecker.Tests
 {
     [TestClass]
     public class CMCDFunctionalTests
