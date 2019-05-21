@@ -5,7 +5,7 @@ namespace CountMatrixCloneDetection
     public class Bipartite
     {
         /// <summary>
-        /// This method will Hungarian Algorithm to determined the best match of every row
+        /// This method will use Hungarian Algorithm to determined the best match of every row
         /// from first matrix to second matrix provided that the total euclidean distance is minimum.
         /// </summary>
         /// <param name="u">matrix of variable counts</param>
@@ -42,7 +42,7 @@ namespace CountMatrixCloneDetection
                     }
 
                     //Cast to int. Instead of modifying the Hungarian algorithm to double/float and do comparison with epsilon
-                    //I choose to cast to int, since we are dealing with count and decimal values are not significantly affect
+                    //I choose to cast to int, since we are dealing with count and decimal values will not significantly affect
                     //the outcome.
                     adjacent[i, j] = (int)Math.Sqrt(temp);
                 }
