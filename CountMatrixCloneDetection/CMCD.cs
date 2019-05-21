@@ -12,7 +12,7 @@ namespace CountMatrixCloneDetection
         /// <summary>
         /// If the methods are completely different according to heuristic, this will be the default score.
         /// </summary>
-        private const double CompletelyDifferentDefaultScore = 1000.0;
+        private const double CompletelyDifferentDefaultScore = double.MaxValue;
 
         /// <summary>
         /// If the number of nodes difference is greater than this number on each level of abstract syntax tree, the method
@@ -41,30 +41,20 @@ namespace CountMatrixCloneDetection
         /// <summary>
         /// Method to run the CMCD algorithm
         /// </summary>
-        public static List<CMCDDuplicateResult> Run(string DirectoryPath)
+        public static List<CMCDDuplicateResult> Run(string directoryPath)
         {
             var comparisonResults = new List<CMCDDuplicateResult>();
 
             try
             {
                 var allMethods = new List<CMCDMethod>();
-                var files = new List<string>();
-                FileAttributes attr = File.GetAttributes(DirectoryPath);
+                var attr = File.GetAttributes(directoryPath);
 
-                if (attr.HasFlag(FileAttributes.Directory))
-                {
-                    // it's a directory
-                    files = Directory.GetFiles(DirectoryPath, "*.cs", SearchOption.AllDirectories).ToList();
-                }
-                else
-                {
-                    // it's a file
-                    files = new List<string>() { DirectoryPath };
-                }
+                var files = attr.HasFlag(FileAttributes.Directory) ? Directory.GetFiles(directoryPath, "*.cs", SearchOption.AllDirectories).ToList() : new List<string>() { directoryPath };
 
                 foreach (var file in files)
                 {
-                    var methods = GetMethods(file).Select(c => 
+                    var methods = GetMethods(file).Select(c =>
                         new CMCDMethod()
                         {
                             FilePath = Path.GetFullPath(file),
@@ -76,7 +66,7 @@ namespace CountMatrixCloneDetection
 
                 for (int i = 0; i < allMethods.Count; i++)
                 {
-                    for (int j = i+1; j < allMethods.Count; j++)
+                    for (int j = i + 1; j < allMethods.Count; j++)
                     {
                         try
                         {

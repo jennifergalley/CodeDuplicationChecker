@@ -538,13 +538,21 @@ namespace CountMatrixCloneDetection
             var tokenNode = current.GetFirstToken();
             if (current.Kind() == SyntaxKind.Parameter)
             {
-                var childNodes = current.ChildNodes();
-                foreach (var c in childNodes)
+                var tokens= current.ChildTokens();
+                if (tokens!= null && tokens.Any())
                 {
-                    if (c.Kind() == SyntaxKind.IdentifierToken)
+                    tokenNode = tokens.FirstOrDefault();
+                }
+                else
+                {
+                    var childNodes = current.ChildNodes();
+                    foreach (var c in childNodes)
                     {
-                        tokenNode = current.GetLastToken();
-                        break;
+                        if (c.Kind() == SyntaxKind.IdentifierToken)
+                        {
+                            tokenNode = current.GetLastToken();
+                            break;
+                        }
                     }
                 }
             }
