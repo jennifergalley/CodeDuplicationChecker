@@ -551,11 +551,24 @@ namespace CountMatrixCloneDetection
             var item = dict.FirstOrDefault(e => e.Name == tokenNode.Text && e.ScopeNode == currentScope);
             if (item == null)
             {
-                dict.Add(new VariableName { Name = tokenNode.Text, ScopeNode = currentScope, Defined = 1 });
+                item = new VariableName { Name = tokenNode.Text, ScopeNode = currentScope, Defined = 0 };
+                dict.Add(item);
             }
-            else
+            item.Defined += 1;
+            var varType = current.Parent.ChildNodes().FirstOrDefault().GetFirstToken().Text;
+
+            switch (varType)
             {
-                item.Defined += 1;
+                case "int": item.DefinedByType = 1; break;
+                case "float": item.DefinedByType = 2; break;
+                case "double": item.DefinedByType = 3; break;
+                case "string": item.DefinedByType = 4; break;
+                case "char": item.DefinedByType = 5; break;
+                case "var":
+                case "object": item.DefinedByType = 6; break;
+                case "bool": item.DefinedByType = 7; break;
+                default:
+                    item.DefinedByType = varType.GetHashCode(); break;
             }
         }
 

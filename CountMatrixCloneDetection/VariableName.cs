@@ -23,6 +23,8 @@ namespace CountMatrixCloneDetection
 
         public int Defined { get; set; }
 
+        public int DefinedByType { get; set; }
+
         public int DefinedByAddOrSubtractOp { get; set; }
 
         public int DefinedByMultiplyOrDivideOp { get; set; }
@@ -91,7 +93,8 @@ namespace CountMatrixCloneDetection
                 InFirstLevelLoop,
                 ThirdLevelMemberAccessed,
                 SecondLevelMemberAccessed,
-                FirstLevelMemberAccessed
+                FirstLevelMemberAccessed,
+                DefinedByType
             };
 
             return list.ToArray();
