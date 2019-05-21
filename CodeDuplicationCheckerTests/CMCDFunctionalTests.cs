@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using CountMatrixCloneDetection;
+﻿using CountMatrixCloneDetection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace CodeDuplicationChecker.Tests
 {

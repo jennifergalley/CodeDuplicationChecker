@@ -56,36 +56,37 @@ namespace CountMatrixCloneDetection
                     // it's a directory
                     files = Directory.GetFiles(DirectoryPath, "*.cs", SearchOption.AllDirectories).ToList();
                 }
-                foreach (var file in files)
+                else
                 {
-                    allMethods.AddRange(GetMethods(file).Select(c => new CMCDMethod() { FilePath = Path.GetFullPath(file), FileName = Path.GetFileName(file), MethodNode = c }));
+                    // it's a file
+                    files = new List<string>() { DirectoryPath };
                 }
 
-                foreach (var methodA in allMethods)
+                foreach (var file in files)
                 {
-                    foreach (var methodB in allMethods)
+                    var methods = GetMethods(file).Select(c => 
+                        new CMCDMethod()
+                        {
+                            FilePath = Path.GetFullPath(file),
+                            FileName = Path.GetFileName(file),
+                            MethodNode = c
+                        });
+                    allMethods.AddRange(methods);
+                }
+
+                for (int i = 0; i < allMethods.Count; i++)
+                {
+                    for (int j = i+1; j < allMethods.Count; j++)
                     {
                         try
                         {
+                            var methodA = allMethods[i];
+                            var methodB = allMethods[j];
                             var compareResult = Compare(methodA.MethodNode, methodB.MethodNode);
                             comparisonResults.Add(new CMCDDuplicateResult()
                             {
-                                MethodA = new CMCDMethodInfo()
-                                {
-                                    FileName = methodA.FileName,
-                                    FilePath = Path.GetFullPath(methodA.FilePath),
-                                    MethodText = methodA.MethodNode.GetText().ToString(),
-                                    EndLineNumber = methodA.MethodNode.FullSpan.End,
-                                    StartLineNumber = methodA.MethodNode.FullSpan.Start
-                                },
-                                MethodB = new CMCDMethodInfo()
-                                {
-                                    FileName = methodB.FileName,
-                                    FilePath = Path.GetFullPath(methodB.FilePath),
-                                    MethodText = methodB.MethodNode.GetText().ToString(),
-                                    EndLineNumber = methodB.MethodNode.FullSpan.End,
-                                    StartLineNumber = methodB.MethodNode.FullSpan.Start
-                                },
+                                MethodA = new CMCDMethodInfo(methodA),
+                                MethodB = new CMCDMethodInfo(methodB),
                                 Score = compareResult
                             });
                         }
@@ -123,26 +124,19 @@ namespace CountMatrixCloneDetection
 
                 foreach (var syntaxNode in child)
                 {
-                    var kind = syntaxNode.Kind();
-                    if (kind != SyntaxKind.NamespaceDeclaration && kind != SyntaxKind.ClassDeclaration &&
-                        kind != SyntaxKind.MethodDeclaration)
+                    switch (syntaxNode.Kind())
                     {
-                        continue;
-                    }
-
-                    if (kind == SyntaxKind.MethodDeclaration)
-                    {
-                        methods.Add(syntaxNode);
-                    }
-
-                    if (kind == SyntaxKind.ClassDeclaration)
-                    {
-                        methods.AddRange(SyntaxTreeParser.GetMethodsFromClassNode(syntaxNode));
-                    }
-
-                    if (kind == SyntaxKind.NamespaceDeclaration)
-                    {
-                        methods.AddRange(SyntaxTreeParser.GetMethodsFromNamespace(syntaxNode));
+                        case SyntaxKind.MethodDeclaration:
+                            methods.Add(syntaxNode);
+                            break;
+                        case SyntaxKind.ClassDeclaration:
+                            methods.AddRange(SyntaxTreeParser.GetMethodsFromClassNode(syntaxNode));
+                            break;
+                        case SyntaxKind.NamespaceDeclaration:
+                            methods.AddRange(SyntaxTreeParser.GetMethodsFromNamespace(syntaxNode));
+                            break;
+                        default:
+                            continue;
                     }
                 }
             }
@@ -336,7 +330,6 @@ namespace CountMatrixCloneDetection
             {
                 return false;
             }
-
 
             if (Math.Abs(largerNodeCountPerLevel.Sum(e => e.Value) - smallerNodeCountPerLevel.Sum(e => e.Value)) > MaxAllowedTotalDifference)
             {

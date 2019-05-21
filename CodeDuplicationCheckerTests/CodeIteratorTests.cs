@@ -16,7 +16,13 @@ namespace CodeDuplicationChecker.Tests
 
             // Assert
             Assert.IsNotNull(results);
-            Assert.AreNotEqual(0, results.Count);
+            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[0].Filename);
+            Assert.AreEqual(13, results[0].StartLine);
+            Assert.AreEqual(59, results[0].EndLine);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[1].Filename);
+            Assert.AreEqual(61, results[1].StartLine);
+            Assert.AreEqual(109, results[1].EndLine);
         }
 
         [TestMethod()]
@@ -30,37 +36,14 @@ namespace CodeDuplicationChecker.Tests
 
             // Assert
             Assert.IsNotNull(results);
-            Assert.AreNotEqual(0, results.Count);
-        }
-
-        [TestMethod()]
-        public void CheckDirForDuplicatesTest()
-        {
-            // Arrange
-            var filepath = "../../SampleCode";
-            var verbosity = true;
-
-            // Act
-            var results = CodeIterator.CheckDirForDuplicates(filepath, verbosity);
-
-            // Assert
-            Assert.IsNotNull(results);
-            Assert.AreNotEqual(0, results.Count);
-        }
-
-        [TestMethod()]
-        public void CheckFileForDuplicatesTest()
-        {
-            // Arrange
-            var filename = "../../SampleCode/RiddledWithDuplicates.cs";
-            var verbosity = true;
-
-            // Act
-            var results = CodeIterator.CheckFileForDuplicates(filename, verbosity);
-
-            // Assert
-            Assert.IsNotNull(results);
-            Assert.AreNotEqual(0, results.Count);
+            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[0].Filename);
+            Assert.AreEqual(13, results[0].StartLine);
+            Assert.AreEqual(59, results[0].EndLine);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[1].Filename);
+            Assert.AreEqual(61, results[1].StartLine);
+            Assert.AreEqual(109, results[1].EndLine);
         }
     }
 }

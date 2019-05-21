@@ -18,7 +18,6 @@ namespace CodeDuplicationChecker
         static void Main(string[] args)
         {
             var numArgs = args.Count();
-            var filename = string.Empty; // -f / --filename
             var filepath = string.Empty; // -p / --filepath
             var verbose = false; // -v / --verbose
             var blockOfExecution = string.Empty; // the block of execution which threw an exception, if any
@@ -37,11 +36,6 @@ namespace CodeDuplicationChecker
                     var arg = args[i];
                     switch (arg)
                     {
-                        case "-f":
-                        case "--filename":
-                            i++;
-                            filename = args[i];
-                            break;
                         case "-p":
                         case "--filepath":
                             i++;
@@ -62,7 +56,7 @@ namespace CodeDuplicationChecker
 
                 // Run the scan
                 blockOfExecution = "parsing your file(s)";
-                var results = CodeIterator.CheckForDuplicates(filename, filepath, verbose);
+                var results = CodeIterator.CheckForDuplicates(filepath, verbose);
 
                 // Generate the results
                 blockOfExecution = "generating the results file";
@@ -88,8 +82,7 @@ namespace CodeDuplicationChecker
             Console.WriteLine();
             Console.WriteLine("Help dialog:");
             Console.WriteLine("Possible options:");
-            Console.WriteLine("-f / --filename <string> : provides the filename to check for duplicates");
-            Console.WriteLine("-p / --filepath <string> : specifies a directory of files to check for duplicates");
+            Console.WriteLine("-p / --filepath <string> : specifies a filename or directory of files to check for duplicates");
             Console.WriteLine("-v / --verbose : indicates the program should produce verbose output");
         }
     }
