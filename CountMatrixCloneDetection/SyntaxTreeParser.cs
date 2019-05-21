@@ -9,7 +9,9 @@ namespace CountMatrixCloneDetection
     public static class SyntaxTreeParser
     {
         /// <summary>
-        /// 
+        /// This method will breadth-first search on abstract syntax tree and count variables and variable usage based
+        /// on the features defined in the variable name type. It will also calculate the number of nodes on
+        /// each level of tree. 
         /// </summary>
         /// <param name="methodNode"></param>
         /// <param name="nodeCountPerLevel"></param>
@@ -136,7 +138,7 @@ namespace CountMatrixCloneDetection
                                 currentVariable.InvokedAsParameter += 1;
                             }
 
-                            if (IsInStatement(current))
+                            if (IsInIfStatement(current))
                             {
                                 currentVariable.InIfStatement += 1;
                             }
@@ -210,7 +212,7 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// This method will return list of methods node defined in class by traversing the tree
         /// </summary>
         /// <param name="syntaxNode"></param>
         /// <returns></returns>
@@ -228,7 +230,7 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// This method will return list of methods node defined in namespace by traversing the tree
         /// </summary>
         /// <param name="syntaxNode"></param>
         /// <returns></returns>
@@ -466,7 +468,7 @@ namespace CountMatrixCloneDetection
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        internal static bool IsInStatement(SyntaxNode node)
+        internal static bool IsInIfStatement(SyntaxNode node)
         {
             if (node == null)
             {
@@ -501,11 +503,12 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// This method will traverse the tree bottom-up and find the closest common ancestor of the current variable
+        /// and the variables in the list and return the correct variable.
         /// </summary>
-        /// <param name="variableNames"></param>
-        /// <param name="node"></param>
-        /// <returns></returns>
+        /// <param name="variableNames">List of declared variables</param>
+        /// <param name="node">Current variable node</param>
+        /// <returns>Return correct variable from the list which corresponds to current node</returns>
         internal static VariableName FindVariableName(IList<VariableName> variableNames, SyntaxNode node)
         {
             var temp = node;
@@ -555,25 +558,45 @@ namespace CountMatrixCloneDetection
                 dict.Add(item);
             }
             item.Defined += 1;
-            var varType = current.Parent.ChildNodes().FirstOrDefault().GetFirstToken().Text;
+            var varType = current.Parent.ChildNodes().FirstOrDefault()?.GetFirstToken().Text;
+
+            if (string.IsNullOrEmpty(varType))
+            {
+                return;
+            }
 
             switch (varType)
             {
-                case "int": item.DefinedByType = 1; break;
-                case "float": item.DefinedByType = 2; break;
-                case "double": item.DefinedByType = 3; break;
-                case "string": item.DefinedByType = 4; break;
-                case "char": item.DefinedByType = 5; break;
+                case "int":
+                    item.DefinedByType = 1;
+                    break;
+                case "float":
+                    item.DefinedByType = 2;
+                    break;
+                case "double":
+                    item.DefinedByType = 3;
+                    break;
+                case "string":
+                    item.DefinedByType = 4;
+                    break;
+                case "char":
+                    item.DefinedByType = 5;
+                    break;
                 case "var":
-                case "object": item.DefinedByType = 6; break;
-                case "bool": item.DefinedByType = 7; break;
+                case "object":
+                    item.DefinedByType = 6;
+                    break;
+                case "bool":
+                    item.DefinedByType = 7;
+                    break;
                 default:
-                    item.DefinedByType = varType.GetHashCode(); break;
+                    item.DefinedByType = varType.GetHashCode();
+                    break;
             }
         }
 
         /// <summary>
-        /// 
+        /// Return true of kind == *AssignmentExpression
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -600,7 +623,7 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// Return true if kind == *LiteralExpression
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
@@ -616,7 +639,7 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// Return true of kind == SyntaxKind.IdentifierName
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
@@ -626,7 +649,7 @@ namespace CountMatrixCloneDetection
         }
 
         /// <summary>
-        /// 
+        /// This method will calculate the scope of declared variable and return the scope node
         /// </summary>
         /// <param name="current"></param>
         /// <returns></returns>

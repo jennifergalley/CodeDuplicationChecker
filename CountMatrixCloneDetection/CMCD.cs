@@ -10,7 +10,7 @@ namespace CountMatrixCloneDetection
     public static class CMCD
     {
         /// <summary>
-        /// If the methods are completely different according heuristic, this will be the default score.
+        /// If the methods are completely different according to heuristic, this will be the default score.
         /// </summary>
         private const double CompletelyDifferentDefaultScore = 1000.0;
 
