@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace Dedup
+namespace CountMatrixCloneDetection
 {
     public static class SyntaxTreeParser
     {
@@ -12,13 +12,18 @@ namespace Dedup
         /// 
         /// </summary>
         /// <param name="methodNode"></param>
+        /// <param name="nodeCountPerLevel"></param>
         /// <returns></returns>
-        public static List<VariableName> GetVariablesCount(SyntaxNode methodNode)
+        public static List<VariableName> GetVariablesCount(SyntaxNode methodNode, out Dictionary<int, int> nodeCountPerLevel)
         {
             var variablesCount = new List<VariableName>();
-            Queue<SyntaxNode> queue = new Queue<SyntaxNode>();
+            var queue = new Queue<SyntaxNode>();
+            nodeCountPerLevel = new Dictionary<int, int>();
+
             queue.Enqueue(methodNode);
 
+            var level = 0;
+            nodeCountPerLevel.Add(level, 1);
             //BFS
             while (queue.Count > 0)
             {
@@ -193,6 +198,11 @@ namespace Dedup
                 foreach (var node in temp)
                 {
                     queue.Enqueue(node);
+                }
+
+                if (queue.Count > 0)
+                {
+                    nodeCountPerLevel.Add(++level, queue.Count);
                 }
             }
 
@@ -609,7 +619,7 @@ namespace Dedup
         /// <returns></returns>
         internal static SyntaxNode GetScope(SyntaxNode current)
         {
-            if (current.Parent!= null && current.Parent.Kind() == SyntaxKind.ForEachStatement)
+            if (current.Parent != null && current.Parent.Kind() == SyntaxKind.ForEachStatement)
             {
                 return current.Parent;
             }
