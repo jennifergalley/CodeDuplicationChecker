@@ -136,7 +136,7 @@ namespace CountMatrixCloneDetection
                                 currentVariable.InvokedAsParameter += 1;
                             }
 
-                            if (IsInStatement(current))
+                            if (IsIfStatement(current))
                             {
                                 currentVariable.InIfStatement += 1;
                             }
@@ -499,13 +499,11 @@ namespace CountMatrixCloneDetection
         {
             // If parent is "SwitchStatement"
             var current = node;
-            // Console.WriteLine("Testing for " + node.GetFirstToken().Text);
             while (current != null)
             {
                 if (current.Kind() == SyntaxKind.SwitchSection)
                 {
                     // Bail out if its part of the case/default statement
-                    // Console.WriteLine("Part of case");
                     return false;
                 }
 
@@ -549,7 +547,7 @@ namespace CountMatrixCloneDetection
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        internal static bool IsInStatement(SyntaxNode node)
+        internal static bool IsIfStatement(SyntaxNode node)
         {
             if (node == null)
             {

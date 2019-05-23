@@ -9,6 +9,7 @@ namespace CountMatrixCloneDetection
         {
             var m = 66;
             var total = 0;
+            total += m; //  FIX ME: If variables are flipped left <-> right, no diff shows up
             object xm = null;
             Employee employee1 = new Employee();
             employee1.FirstName = "A";
@@ -48,18 +49,18 @@ namespace CountMatrixCloneDetection
                 
             }
 
-            // switch (m)
-            // {
-            //     case 2: {
-            //         total += m;break;
-            //     }
-            //     case 3: {
-            //         total += 4;break;
-            //     }
-            //     default: {
-            //         m*=total;break;
-            //     }
-            // }
+            
+            switch (m+=2) { // FIX ME: Only works if expression
+                case 2: {
+                    total += m;break;
+                }
+                case 3: {
+                    total += 4;break;
+                }
+                default: {
+                    m*=total;break;
+                }
+            }
 
             return total;
         }
@@ -77,6 +78,7 @@ namespace CountMatrixCloneDetection
             employee1.Salary += x + y;
             employee1.Salary *= x + y;
             var m = 66;
+            m += total; //  FIX ME: If variables are flipped left <-> right, no diff shows up
             var max = Math.Max(x, y);
             for (int k = 0; k < 10; k++)
             {
@@ -108,18 +110,18 @@ namespace CountMatrixCloneDetection
 
             }
 
-            // switch (total)
-            // {
-            //     case 2: {
-            //         total += m;break;
-            //     }
-            //     case 3: {
-            //         total += 4;break;
-            //     }
-            //     default: {
-            //         m*=total;break;
-            //     }
-            // }
+            switch (m+=2)
+            {
+                case 2: {
+                    m += total;break;
+                }
+                case 3: {
+                    total += 4;break;
+                }
+                default: {
+                    m*=2;break;
+                }
+            }
 
             return total;
         }
