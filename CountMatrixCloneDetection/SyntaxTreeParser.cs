@@ -141,6 +141,26 @@ namespace CountMatrixCloneDetection
                                 currentVariable.InIfStatement += 1;
                             }
 
+                            if (IsInSwitchStatement(current))
+                            {
+                                // Console.WriteLine("Case Variable " + current.GetFirstToken().Text);
+
+                                currentVariable.InCaseStatement += 1;
+                            }
+
+                            if (IsSwitchDefaultVariable(current))
+                            {
+                                // Console.WriteLine("Default Variable " + current.GetFirstToken().Text);
+
+                                currentVariable.InDefaultStatement += 1;
+                            }
+
+                            if (IsSwitchVariable(current))
+                            {
+                                Console.WriteLine("Switch Variable " + current.GetFirstToken().Text);
+                                currentVariable.InSwitchStatement += 1;
+                            }
+
                             var loopStatementLevel = GetLoopStatementDepth(current);
                             if (loopStatementLevel > 0)
                             {
@@ -460,6 +480,69 @@ namespace CountMatrixCloneDetection
 
             return depth;
         }
+
+        internal static bool IsInSwitchStatement(SyntaxNode node)
+        {
+            // If ancestor has "SwitchSection"
+            var current = node;
+            while (current != null)
+            {
+                if (current.Kind() == SyntaxKind.SwitchStatement)
+                    return true;
+                current = current.Parent;
+            }
+
+            return false;
+        }
+
+        internal static bool IsSwitchVariable(SyntaxNode node)
+        {
+            // If parent is "SwitchStatement"
+            var current = node;
+            // Console.WriteLine("Testing for " + node.GetFirstToken().Text);
+            while (current != null)
+            {
+                if (current.Kind() == SyntaxKind.SwitchSection)
+                {
+                    // Bail out if its part of the case/default statement
+                    // Console.WriteLine("Part of case");
+                    return false;
+                }
+
+                if (current.Kind() == SyntaxKind.SwitchStatement)
+                {
+                    return true;
+                }
+                
+                current = current.Parent;
+            }
+
+            return false;
+        }
+
+        internal static bool IsSwitchDefaultVariable(SyntaxNode node)
+        {
+            // Find parent with Switch Section. If one of the child is DefaultKeyword
+            
+            var current = node;
+            while (current != null)
+            {
+                if (current.Kind() == SyntaxKind.SwitchSection)
+                {
+                    foreach (var child in current.ChildNodes())
+                    {
+                        if (child.Kind() == SyntaxKind.DefaultSwitchLabel)
+                            return true;
+                    }
+                }
+
+                current = current.Parent;
+            }
+
+            return false;
+        }
+
+
 
         /// <summary>
         /// 

@@ -19,6 +19,12 @@ namespace CountMatrixCloneDetection
 
         public int InIfStatement { get; set; }
 
+        public int InSwitchStatement { get; set; }
+
+        public int InCaseStatement { get; set; }
+
+        public int InDefaultStatement { get; set; }
+
         public int ArraySubScript { get; set; }
 
         public int Defined { get; set; }
@@ -94,7 +100,10 @@ namespace CountMatrixCloneDetection
                 ThirdLevelMemberAccessed,
                 SecondLevelMemberAccessed,
                 FirstLevelMemberAccessed,
-                DefinedByType
+                DefinedByType,
+                InCaseStatement,
+                InSwitchStatement,
+                InDefaultStatement
             };
 
             return list.ToArray();

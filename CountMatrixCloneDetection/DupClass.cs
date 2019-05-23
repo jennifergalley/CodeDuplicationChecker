@@ -48,6 +48,19 @@ namespace CountMatrixCloneDetection
                 
             }
 
+            // switch (m)
+            // {
+            //     case 2: {
+            //         total += m;break;
+            //     }
+            //     case 3: {
+            //         total += 4;break;
+            //     }
+            //     default: {
+            //         m*=total;break;
+            //     }
+            // }
+
             return total;
         }
         
@@ -94,6 +107,19 @@ namespace CountMatrixCloneDetection
             {
 
             }
+
+            // switch (total)
+            // {
+            //     case 2: {
+            //         total += m;break;
+            //     }
+            //     case 3: {
+            //         total += 4;break;
+            //     }
+            //     default: {
+            //         m*=total;break;
+            //     }
+            // }
 
             return total;
         }
