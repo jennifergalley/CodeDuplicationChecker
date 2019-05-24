@@ -145,15 +145,11 @@ namespace CountMatrixCloneDetection
 
                             if (IsInSwitchStatement(current))
                             {
-                                // Console.WriteLine("Case Variable " + current.GetFirstToken().Text);
-
                                 currentVariable.InCaseStatement += 1;
                             }
 
                             if (IsSwitchDefaultVariable(current))
                             {
-                                // Console.WriteLine("Default Variable " + current.GetFirstToken().Text);
-
                                 currentVariable.InDefaultStatement += 1;
                             }
 
