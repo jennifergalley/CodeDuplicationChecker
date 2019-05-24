@@ -178,7 +178,7 @@ namespace CountMatrixCloneDetection
                 d2 /= maxLen;
             }
 
-            if (d2 > 0)
+            if (d2 >= 0)
             {
                 Console.WriteLine(d2);
             }
