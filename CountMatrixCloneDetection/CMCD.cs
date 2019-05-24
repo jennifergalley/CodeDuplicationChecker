@@ -36,7 +36,7 @@ namespace CountMatrixCloneDetection
         /// If the number of variables is less or equal this number, the distance between will not be normalized, instead we
         /// used the absolute difference as score.
         /// </summary>
-        private const int MinimumVariableLengthToNormalize = 5;
+        private const int MinimumVariableLengthToNormalize = 3;
 
         /// <summary>
         /// Method to run the CMCD algorithm
