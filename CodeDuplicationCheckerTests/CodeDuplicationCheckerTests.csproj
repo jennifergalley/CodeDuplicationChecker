@@ -54,6 +54,7 @@
     <Compile Include="CMCDFunctionalTests.cs" />
     <Compile Include="BipartiteTests.cs" />
     <Compile Include="CMCDTests.cs" />
+    <Compile Include="DemoTests\DuplicateMethods.cs" />
     <Compile Include="VisualizeDiffsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleCode\RiddledWithDuplicates.cs" />
