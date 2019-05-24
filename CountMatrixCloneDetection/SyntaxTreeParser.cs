@@ -159,7 +159,6 @@ namespace CountMatrixCloneDetection
 
                             if (IsSwitchVariable(current))
                             {
-                                Console.WriteLine("Switch Variable " + current.GetFirstToken().Text);
                                 currentVariable.InSwitchStatement += 1;
                             }
 

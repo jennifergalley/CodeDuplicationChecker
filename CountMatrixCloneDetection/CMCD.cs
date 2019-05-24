@@ -151,7 +151,6 @@ namespace CountMatrixCloneDetection
 
             if (!shouldRunClonedDetection)
             {
-                Console.WriteLine("shouldRunClonedDetection is False");
                 return CompletelyDifferentDefaultScore;
             }
 
