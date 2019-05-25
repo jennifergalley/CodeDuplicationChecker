@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.IO;
 
 namespace CountMatrixCloneDetection
 {
@@ -14,6 +15,7 @@ namespace CountMatrixCloneDetection
             MethodText = method.MethodNode.GetText().ToString();
             EndLineNumber = method.MethodNode.FullSpan.End;
             StartLineNumber = method.MethodNode.FullSpan.Start;
+            MethodName = (method.MethodNode as MethodDeclarationSyntax)?.Identifier.ValueText;
         }
 
         /// <summary>
@@ -30,6 +32,11 @@ namespace CountMatrixCloneDetection
         /// Gets or sets the method text
         /// </summary>
         public string MethodText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method name
+        /// </summary>
+        public string MethodName { get; set; }
 
         /// <summary>
         /// Gets or sets the start line number

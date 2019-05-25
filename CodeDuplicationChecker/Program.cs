@@ -58,7 +58,7 @@ namespace CodeDuplicationChecker
 
                 // Generate the results
                 blockOfExecution = "generating the results file";
-                VisualizeDiffs.GenerateResultsFile(results, verbose);
+                VisualizeDiffs.TryGenerateResultsFile(results, out var resultsFilePath, verbose);
             }
             catch (Exception e)
             {
