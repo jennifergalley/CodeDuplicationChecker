@@ -11,7 +11,7 @@ namespace CodeDuplicationChecker.Tests
         public void GenerateResultsFile_Type1_Test()
         {
             // Act
-            var success = VisualizeDiffs.GenerateResultsFile(type1, false);
+            var success = VisualizeDiffs.TryGenerateResultsFile(type1, out var filePath, false);
 
             // Assert
             Assert.IsTrue(success);
@@ -21,7 +21,7 @@ namespace CodeDuplicationChecker.Tests
         public void GenerateResultsFile_Type2_Test()
         {
             // Act
-            var success = VisualizeDiffs.GenerateResultsFile(type2, false);
+            var success = VisualizeDiffs.TryGenerateResultsFile(type2, out var filePath, false);
 
             // Assert
             Assert.IsTrue(success);
@@ -31,7 +31,7 @@ namespace CodeDuplicationChecker.Tests
         public void GenerateResultsFile_Type3_Test()
         {
             // Act
-            var success = VisualizeDiffs.GenerateResultsFile(type3, false);
+            var success = VisualizeDiffs.TryGenerateResultsFile(type3, out var filePath, false);
 
             // Assert
             Assert.IsTrue(success);

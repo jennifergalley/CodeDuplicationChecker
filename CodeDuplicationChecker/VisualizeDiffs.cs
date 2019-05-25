@@ -29,7 +29,7 @@ namespace CodeDuplicationChecker
         /// <param name="codeDuplicates">the list of blocks of duplicate code</param>
         /// <param name="verbose">the verbosity of the logging output. True = verbose, False = normal</param>
         /// <returns>True on success, false on failure</returns>
-        public static bool GenerateResultsFile(List<DuplicateInstance> codeDuplicates, bool verbose = false)
+        public static bool TryGenerateResultsFile(List<DuplicateInstance> codeDuplicates, out string resultsfilePath, bool verbose = false)
         {
             if (verbose) Console.WriteLine("Beginning execution of GenerateResultsFile");
 
@@ -39,7 +39,8 @@ namespace CodeDuplicationChecker
 
             // Write the file
             Console.WriteLine("Writing the results file");
-            using (FileStream fs = new FileStream(Filepath + Filename, FileMode.Create))
+            resultsfilePath = Path.GetFullPath(Filepath + Filename);
+            using (FileStream fs = new FileStream(resultsfilePath, FileMode.Create))
             {
                 using (StreamWriter w = new StreamWriter(fs, Encoding.UTF8))
                 {
