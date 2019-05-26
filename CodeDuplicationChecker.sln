@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaiveStringComparer", "NaiveStringComparer\NaiveStringComparer.csproj", "{39072DFA-FBC5-4C5D-8B1D-17E11A2394D5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8947A8C8-2B78-46E1-BA88-FF3A17E9077C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{974CF8DF-4EC4-4256-A320-ABE8D428AF0D} = {8947A8C8-2B78-46E1-BA88-FF3A17E9077C}
+		{E2FC76E9-F3C6-4FA6-9E45-93EE44B21E09} = {8947A8C8-2B78-46E1-BA88-FF3A17E9077C}
 		{533C246C-7764-4415-BCD5-46804D325DF6} = {B7B20149-FF27-48A5-BDBD-F232DAA39D74}
 		{63D66E57-9310-4950-9C6E-0EB6D68289AB} = {B7B20149-FF27-48A5-BDBD-F232DAA39D74}
 	EndGlobalSection
