@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeDuplicationChecker.UnitTests
+namespace CodeDuplicationChecker.IntegrationTests
 {
     [TestClass()]
     public class CodeIteratorTests
@@ -16,6 +16,9 @@ namespace CodeDuplicationChecker.UnitTests
 
             // Assert
             Assert.IsNotNull(results);
+            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[0].Filename);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[1].Filename);
         }
 
         [TestMethod()]
@@ -29,6 +32,9 @@ namespace CodeDuplicationChecker.UnitTests
 
             // Assert
             Assert.IsNotNull(results);
+            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[0].Filename);
+            Assert.AreEqual("RiddledWithDuplicates.cs", results[1].Filename);
         }
     }
 }

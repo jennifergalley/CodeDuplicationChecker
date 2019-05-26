@@ -1,7 +1,6 @@
 ﻿using CountMatrixCloneDetection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CodeDuplicationChecker
 {
@@ -14,15 +13,10 @@ namespace CodeDuplicationChecker
         /// <param name="verbose">(optinoal) the verbosity of the output. True = verbose, False = normal</param>
         public static List<DuplicateInstance> CheckForDuplicates(string filepath = "", bool verbose = false)
         {
-            if (verbose)
-            {
-                Console.WriteLine("Beginning execution of CheckForDuplicates");
-            }
+            if (verbose) Logger.Log("Beginning execution of CheckForDuplicates");
 
             if (string.IsNullOrWhiteSpace(filepath))
-            {
-                throw new ArgumentException("Either a filename or a directory must be provided.");
-            }
+                throw new ArgumentNullException("Either a filename or a directory must be provided.");
 
             var results = new List<DuplicateInstance>();
             var cmcdResults = CMCD.Run(filepath);
@@ -40,12 +34,9 @@ namespace CodeDuplicationChecker
                 }
             }
 
-            if (verbose)
-            {
-                Console.WriteLine("Finishing execution of CheckForDuplicates");
-            }
+            if (verbose) Logger.Log("Finishing execution of CheckForDuplicates");
 
-            return results.ToList();
+            return results;
         }
     }
 }

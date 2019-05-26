@@ -1,15 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodeDuplicationChecker;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CodeDuplicationChecker.Tests
+namespace NaiveStringComparer.UnitTests
 {
     [TestClass()]
-    public class SimilarityScorerTests
+    public class NaiveStringComparerTests
     {
         [TestMethod()]
         public void GetSimilarityScore_SameTest()
@@ -19,10 +13,10 @@ namespace CodeDuplicationChecker.Tests
             var compare2 = "hello";
 
             // Act
-            var result = SimilarityScorer.GetSimilarityScore(compare1, compare2);
+            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
 
             // Assert
-            Assert.AreEqual(1.0, result, "Similarity score returned was not correct.");
+            Assert.AreEqual(0, result, "Similarity score returned was not correct.");
         }
 
         [TestMethod()]
@@ -33,10 +27,10 @@ namespace CodeDuplicationChecker.Tests
             var compare2 = "hello";
 
             // Act
-            var result = SimilarityScorer.GetSimilarityScore(compare1, compare2);
+            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
 
             // Assert
-            Assert.AreEqual(0, result, "Similarity score returned was not correct.");
+            Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");
         }
 
         [TestMethod()]
@@ -47,10 +41,10 @@ namespace CodeDuplicationChecker.Tests
             var compare2 = "";
 
             // Act
-            var result = SimilarityScorer.GetSimilarityScore(compare1, compare2);
+            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
 
             // Assert
-            Assert.AreEqual(0, result, "Similarity score returned was not correct.");
+            Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");
         }
 
         [TestMethod()]
@@ -61,10 +55,10 @@ namespace CodeDuplicationChecker.Tests
             var compare2 = "hello";
 
             // Act
-            var result = SimilarityScorer.GetSimilarityScore(compare1, compare2);
+            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
 
             // Assert
-            Assert.AreEqual(0, result, "Similarity score returned was not correct.");
+            Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");
         }
 
         [TestMethod()]
@@ -75,10 +69,10 @@ namespace CodeDuplicationChecker.Tests
             string compare2 = null;
 
             // Act
-            var result = SimilarityScorer.GetSimilarityScore(compare1, compare2);
+            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
 
             // Assert
-            Assert.AreEqual(0, result, "Similarity score returned was not correct.");
+            Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-using CountMatrixCloneDetection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeDuplicationChecker.Tests
+namespace CountMatrixCloneDetection.UnitTests
 {
     [TestClass]
     public class CMCDTests
@@ -14,7 +12,7 @@ namespace CodeDuplicationChecker.Tests
         public void GetMethodsTest()
         {
             // Arrange
-            var filepath = "../../SampleCode/RiddledWithDuplicates.cs";
+            var filepath = "../../../SampleCode/UnitTests/RiddledWithDuplicates.cs";
 
             // Act
             var result = CMCD.GetMethods(filepath);

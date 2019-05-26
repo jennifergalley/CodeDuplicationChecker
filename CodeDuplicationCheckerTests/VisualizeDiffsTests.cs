@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace CodeDuplicationChecker.Tests
+namespace CodeDuplicationChecker.UnitTests
 {
     [TestClass()]
     public class VisualizeDiffsTests
