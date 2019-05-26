@@ -93,6 +93,7 @@ namespace CodeDuplicationChecker
         /// <returns>a list of lines as strings</returns>
         public static List<string> SplitCodeNewlines(string code)
         {
+            code = code.Trim();
             return code.Split(
                 new[] { "\r\n", "\r", "\n" },
                 StringSplitOptions.None
