@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CodeDuplicationChecker
 {
-    class Program
+    public class Program
     {
         /// <summary>
         /// Parses the command line inputs and starts the check.
@@ -13,7 +13,7 @@ namespace CodeDuplicationChecker
         /// -h / --help : prints the help dialog
         /// </summary>
         /// <param name="args">the command-line arguments</param>
-        static void Main(string[] args)
+        public static int Main(string[] args)
         {
             var numArgs = args.Count();
             var filepath = string.Empty; // -f / --filepath
@@ -26,7 +26,7 @@ namespace CodeDuplicationChecker
                 blockOfExecution = "parsing the command-line arguments";
                 if (numArgs == 0)
                 {
-                    throw new ArgumentException("Either a filename or a directory must be provided");
+                    throw new ArgumentException("Either a filename or a directory must be provided.");
                 }
 
                 for (int i = 0; i < numArgs; i++)
@@ -46,10 +46,15 @@ namespace CodeDuplicationChecker
                         case "-h":
                         case "--help":
                             PrintHelp();
-                            return;
+                            return 1;
                         default:
-                            throw new ArgumentException("Invalid arguments provided");
+                            throw new ArgumentException("Invalid arguments provided.");
                     }
+                }
+
+                if (string.IsNullOrWhiteSpace(filepath))
+                {
+                    throw new ArgumentException("Either a filename or a directory must be provided.");
                 }
 
                 // Run the scan
@@ -59,16 +64,20 @@ namespace CodeDuplicationChecker
                 // Generate the results
                 blockOfExecution = "generating the results file";
                 VisualizeDiffs.TryGenerateResultsFile(results, out var resultsFilePath, verbose);
+
+                return 1;
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Oops! Something went wrong while {blockOfExecution}. Try using -h or --help for help.");
+                Logger.Log($"Oops! Something went wrong while {blockOfExecution}. Try using -h or --help for help.");
 
                 if (verbose)
                 {
-                    Console.WriteLine("Error message:");
-                    Console.WriteLine(e.Message);
+                    Logger.Log("Error message:");
+                    Logger.Log(e.Message);
                 }
+
+                return -1;
             }
         }
 
@@ -77,12 +86,12 @@ namespace CodeDuplicationChecker
         /// </summary>
         private static void PrintHelp()
         {
-            Console.WriteLine();
-            Console.WriteLine("Help dialog:");
-            Console.WriteLine("Possible options:");
-            Console.WriteLine("-f / --filepath <string> [required] : specifies a filename or directory of files to check for duplicates");
-            Console.WriteLine("-v / --verbose : indicates the program should produce verbose output");
-            Console.WriteLine("-h / --help : prints this help dialog");
+            Logger.Log(string.Empty);
+            Logger.Log("Help dialog:");
+            Logger.Log("Possible options:");
+            Logger.Log("-f / --filepath <string> [required] : specifies a filename or directory of files to check for duplicates");
+            Logger.Log("-v / --verbose : indicates the program should produce verbose output");
+            Logger.Log("-h / --help : prints this help dialog");
         }
     }
 }

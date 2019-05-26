@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="CodeIterator.cs" />
     <Compile Include="DuplicateInstance.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="VisualizeDiffs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

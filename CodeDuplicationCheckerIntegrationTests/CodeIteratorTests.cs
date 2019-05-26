@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeDuplicationChecker.UnitTests
+namespace CodeDuplicationChecker.IntegrationTests
 {
     [TestClass()]
     public class CodeIteratorTests

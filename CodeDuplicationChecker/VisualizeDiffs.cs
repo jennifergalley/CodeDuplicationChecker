@@ -31,20 +31,20 @@ namespace CodeDuplicationChecker
         /// <returns>True on success, false on failure</returns>
         public static bool TryGenerateResultsFile(List<DuplicateInstance> codeDuplicates, out string resultsfilePath, bool verbose = false)
         {
-            if (verbose) Console.WriteLine("Beginning execution of GenerateResultsFile");
+            if (verbose) Logger.Log("Beginning execution of GenerateResultsFile");
 
             // Create the "Results" folder if it does not exist
-            Console.WriteLine("Creating Results directory");
+            Logger.Log("Creating Results directory");
             Directory.CreateDirectory(Filepath);
 
             // Write the file
-            Console.WriteLine("Writing the results file");
+            Logger.Log("Writing the results file");
             resultsfilePath = Path.GetFullPath(Filepath + Filename);
             using (FileStream fs = new FileStream(resultsfilePath, FileMode.Create))
             {
                 using (StreamWriter w = new StreamWriter(fs, Encoding.UTF8))
                 {
-                    GenerateCodeHTML(codeDuplicates);
+                    GenerateCodeHTML(codeDuplicates, verbose);
 
                     foreach (var clone in codeDuplicates)
                     {
@@ -81,7 +81,7 @@ namespace CodeDuplicationChecker
 </style>");
                 }
 
-                if (verbose) Console.WriteLine("Finishing execution of GenerateResultsFile");
+                if (verbose) Logger.Log("Finishing execution of GenerateResultsFile");
                 return true;
             }
         }
@@ -104,8 +104,10 @@ namespace CodeDuplicationChecker
         /// Generates the html for diff of code instances
         /// </summary>
         /// <param name="codeDuplicates">the instances of duplicate code</param>
-        public static void GenerateCodeHTML(List<DuplicateInstance> codeDuplicates)
+        public static void GenerateCodeHTML(List<DuplicateInstance> codeDuplicates, bool verbose = false)
         {
+            if (verbose) Logger.Log("Beginning execution of GenerateCodeHTML");
+
             // Find the set of differences between the code snippets
             var diffs = new List<string>();
             var compare1 = SplitCodeNewlines(codeDuplicates[0].Code);
@@ -145,6 +147,8 @@ namespace CodeDuplicationChecker
 
                 codeDuplicates[i].CodeHtml = html.ToString();
             }
+
+            if (verbose) Logger.Log("Finishing execution of GenerateCodeHTML");
         }
     }
 }
