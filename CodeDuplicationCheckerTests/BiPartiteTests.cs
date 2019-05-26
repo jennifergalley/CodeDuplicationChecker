@@ -1,8 +1,6 @@
-﻿using System;
-using CountMatrixCloneDetection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CodeDuplicationChecker.Tests
+namespace CountMatrixCloneDetection.UnitTests
 {
     [TestClass]
     public class BipartiteTests

@@ -1,7 +1,6 @@
 ﻿using CountMatrixCloneDetection;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CodeDuplicationChecker
 {
@@ -45,7 +44,7 @@ namespace CodeDuplicationChecker
                 Console.WriteLine("Finishing execution of CheckForDuplicates");
             }
 
-            return results.ToList();
+            return results;
         }
     }
 }

@@ -51,14 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeIteratorTests.cs" />
-    <Compile Include="CMCDFunctionalTests.cs" />
     <Compile Include="BipartiteTests.cs" />
     <Compile Include="CMCDTests.cs" />
-    <Compile Include="DemoTests\DuplicateMethods.cs" />
     <Compile Include="VisualizeDiffsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleCode\RiddledWithDuplicates.cs" />
-    <Compile Include="SimilarityScorerTests.cs" />
+    <Compile Include="NaiveStringComparerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -71,6 +68,10 @@
     <ProjectReference Include="..\CountMatrixCloneDetection\CountMatrixCloneDetection.csproj">
       <Project>{249DDC98-B1C8-4D4F-A063-20BE510D022E}</Project>
       <Name>CountMatrixCloneDetection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NaiveStringComparer\NaiveStringComparer.csproj">
+      <Project>{39072dfa-fbc5-4c5d-8b1d-17e11a2394d5}</Project>
+      <Name>NaiveStringComparer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -2,10 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
-namespace CodeDuplicationChecker.Tests
+namespace CountMatrixCloneDetection.IntegrationTests
 {
     [TestClass]
-    public class CMCDFunctionalTests
+    public class CMCDTests
     {
         [TestMethod]
         public void RunCMCDOnself()
