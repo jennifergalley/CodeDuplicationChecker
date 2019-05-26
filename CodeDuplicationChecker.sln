@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoTests", "DemoTests", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{63D66E57-9310-4950-9C6E-0EB6D68289AB}"
 	ProjectSection(SolutionItems) = preProject
-		SampleCode\UnitTestsCode\RiddledWithDuplicates.cs = SampleCode\UnitTestsCode\RiddledWithDuplicates.cs
+		SampleCode\UnitTests\RiddledWithDuplicates.cs = SampleCode\UnitTests\RiddledWithDuplicates.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NaiveStringComparer", "NaiveStringComparer\NaiveStringComparer.csproj", "{39072DFA-FBC5-4C5D-8B1D-17E11A2394D5}"

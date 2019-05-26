@@ -46,7 +46,36 @@ namespace CodeDuplicationChecker.IntegrationTests
             // Act
             var result = Program.Main(args);
 
+            // Assert
             Assert.AreEqual(1, result);
+        }
+
+        [TestMethod()]
+        public void Main_Help_Test()
+        {
+            // Arrange
+            string[] args = new string[] { "-h" };
+
+            // Act
+            var result = Program.Main(args);
+
+            // Assert
+            Assert.AreEqual(1, result);
+            Assert.IsTrue(Logger.log.Contains("Help dialog:"));
+        }
+
+        [TestMethod()]
+        public void Main_Help2_Test()
+        {
+            // Arrange
+            string[] args = new string[] { "--help" };
+
+            // Act
+            var result = Program.Main(args);
+
+            // Assert
+            Assert.AreEqual(1, result);
+            Assert.IsTrue(Logger.log.Contains("Help dialog:"));
         }
     }
 }
