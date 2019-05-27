@@ -43,6 +43,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Type2Tests", "Type2Tests", 
 		SampleCode\TypeValidationTests\Type2Tests\VariationsInLiteralsTypes.cs = SampleCode\TypeValidationTests\Type2Tests\VariationsInLiteralsTypes.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Type3Tests", "Type3Tests", "{C6662481-39E8-499F-9333-6F8A8124F308}"
+	ProjectSection(SolutionItems) = preProject
+		SampleCode\TypeValidationTests\Type3Tests\VariationsInOrdering.cs = SampleCode\TypeValidationTests\Type3Tests\VariationsInOrdering.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +155,7 @@ Global
 		{8C45E3F0-4F43-4BD3-9D01-28E67C79FCC8} = {B7B20149-FF27-48A5-BDBD-F232DAA39D74}
 		{6E117A6C-08AE-4E96-9B21-D5DB5223A4F7} = {8C45E3F0-4F43-4BD3-9D01-28E67C79FCC8}
 		{5F8E06C3-68A6-400C-8ED5-F4753810B220} = {8C45E3F0-4F43-4BD3-9D01-28E67C79FCC8}
+		{C6662481-39E8-499F-9333-6F8A8124F308} = {8C45E3F0-4F43-4BD3-9D01-28E67C79FCC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89C10415-0995-409F-A5E5-8D372381D5EB}
