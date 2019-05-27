@@ -23,5 +23,22 @@ namespace TypeValidationTests
                     result.MethodA, result.MethodB, result.Score));
             }
         }
+
+        [TestMethod]
+        public void ValidateType2Tests()
+        {
+            var currentPath = "../../../SampleCode/TypeValidationTests/Type2Tests/";
+
+            // Act
+            var cmcdResults = CMCD.Run(currentPath);
+
+            Assert.IsTrue(cmcdResults.Count == 3);
+
+            foreach (var result in cmcdResults)
+            {
+                Assert.IsTrue(result.Score == 0, string.Format("Test failed for {0}, {1}. Expected Score = 0, Actual score = {2}",
+                    result.MethodA, result.MethodB, result.Score));
+            }
+        }
     }
 }
