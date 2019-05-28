@@ -1,19 +1,22 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CodeDuplicationChecker;
 using CountMatrixCloneDetection;
+using Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TypeValidationTests
 {
     [TestClass]
     public class TypeValidationTests
     {
+        ICodeComparer comparer = new CMCD();
+
         [TestMethod]
         public void ValidateType1Tests()
         {
             var currentPath = "../../../SampleCode/TypeValidationTests/Type1Tests/";
 
             // Act
-            var cmcdResults = CMCD.Run(currentPath);
+            var cmcdResults = CodeIterator.Run(currentPath, comparer);
 
             Assert.IsTrue(cmcdResults.Count == 6);
 
@@ -30,7 +33,7 @@ namespace TypeValidationTests
             var currentPath = "../../../SampleCode/TypeValidationTests/Type2Tests/";
 
             // Act
-            var cmcdResults = CMCD.Run(currentPath);
+            var cmcdResults = CodeIterator.Run(currentPath, comparer);
 
             Assert.IsTrue(cmcdResults.Count == 3);
 
@@ -47,7 +50,7 @@ namespace TypeValidationTests
             var currentPath = "../../../SampleCode/TypeValidationTests/Type3Tests/";
 
             // Act
-            var cmcdResults = CMCD.Run(currentPath);
+            var cmcdResults = CodeIterator.Run(currentPath, comparer);
 
             Assert.IsTrue(cmcdResults.Count == 10);
 
@@ -75,7 +78,7 @@ namespace TypeValidationTests
             var currentPath = "../../../SampleCode/TypeValidationTests/Type4Tests/";
 
             // Act
-            var cmcdResults = CMCD.Run(currentPath);
+            var cmcdResults = CodeIterator.Run(currentPath, comparer);
 
             Assert.IsTrue(cmcdResults.Count == 3);
 

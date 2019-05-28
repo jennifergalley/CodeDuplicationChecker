@@ -90,6 +90,14 @@
       <Project>{249ddc98-b1c8-4d4f-a063-20be510d022e}</Project>
       <Name>CountMatrixCloneDetection</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{6ea320ec-5b67-42a6-909e-c0ac66798efb}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{ca21fd1f-d83f-4a4f-94ed-d05e95f9611e}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

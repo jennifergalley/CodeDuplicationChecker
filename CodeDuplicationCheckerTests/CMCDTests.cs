@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CodeDuplicationChecker;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CountMatrixCloneDetection.UnitTests
 {
@@ -7,20 +8,7 @@ namespace CountMatrixCloneDetection.UnitTests
     {
         private double[,] u = { { 0, 0, 0 }, { 0, 0, 0 } };
         private double[,] v = { { 0, 0, 0 }, { 0, 0, 0 } };
-
-        [TestMethod]
-        public void GetMethodsTest()
-        {
-            // Arrange
-            var filepath = "../../../SampleCode/UnitTests/RiddledWithDuplicates.cs";
-
-            // Act
-            var result = CMCD.GetMethods(filepath);
-
-            // Assert
-            Assert.AreEqual(3, result.Count);
-        }
-
+        
         [TestMethod]
         public void CalculateSimilarityDistanceTest()
         {

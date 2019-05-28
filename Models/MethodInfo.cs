@@ -1,14 +1,14 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.IO;
 
-namespace CountMatrixCloneDetection
+namespace Models
 {
     /// <summary>
     /// class to represent CMDC method info
     /// </summary>
-    public class CMCDMethodInfo
+    public class MethodInfo
     {
-        public CMCDMethodInfo(CMCDMethod method)
+        public MethodInfo(Method method)
         {
             FileName = method.FileName;
             FilePath = Path.GetFullPath(method.FilePath);

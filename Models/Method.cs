@@ -1,11 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace CountMatrixCloneDetection
+namespace Models
 {
     /// <summary>
     /// Class to represent CMDC 
     /// </summary>
-    public class CMCDMethod
+    public class Method
     {
         /// <summary>
         /// Gets or sets file name

@@ -1,15 +1,11 @@
 ﻿using CodeDuplicationChecker;
+using Models;
 using CountMatrixCloneDetection;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CodeDuplicationCheckerApp
@@ -19,7 +15,7 @@ namespace CodeDuplicationCheckerApp
         /// <summary>
         /// Gets or sets the current session reuslts
         /// </summary>
-        private List<CMCDDuplicateResult> currentSessionResults = null;
+        private List<DuplicateResult> currentSessionResults = null;
         
         /// <summary>
         /// The constructor
@@ -58,7 +54,7 @@ namespace CodeDuplicationCheckerApp
             // Start the CMCD
             if (!string.IsNullOrEmpty(cdcPath.Text) && (Directory.Exists(cdcPath.Text) || File.Exists(cdcPath.Text)))
             {
-                currentSessionResults = CMCD.Run(cdcPath.Text);
+                currentSessionResults = CodeIterator.Run(cdcPath.Text, new CMCD());
                 List<CMCDResults> list = new List<CMCDResults>(); 
                 foreach(var result in currentSessionResults)
                 {

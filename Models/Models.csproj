@@ -5,19 +5,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3DC31D7A-B838-41A3-A483-05369B3DECBA}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>CodeDuplicationChecker</RootNamespace>
-    <AssemblyName>CodeDuplicationChecker</AssemblyName>
+    <ProjectGuid>{CA21FD1F-D83F-4A4F-94ED-D05E95F9611E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Models</RootNamespace>
+    <AssemblyName>Models</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,16 +26,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>CodeDuplicationChecker.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeAnalysis, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -107,33 +102,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeIterator.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="VisualizeDiffs.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Algorithm.cs" />
+    <Compile Include="DuplicateInstance.cs" />
+    <Compile Include="DuplicateResult.cs" />
+    <Compile Include="Method.cs" />
+    <Compile Include="MethodInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CountMatrixCloneDetection\CountMatrixCloneDetection.csproj">
-      <Project>{249DDC98-B1C8-4D4F-A063-20BE510D022E}</Project>
-      <Name>CountMatrixCloneDetection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
-      <Project>{6ea320ec-5b67-42a6-909e-c0ac66798efb}</Project>
-      <Name>Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{ca21fd1f-d83f-4a4f-94ed-d05e95f9611e}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NaiveStringComparer\NaiveStringComparer.csproj">
-      <Project>{528577F6-D5AD-4EEB-AF65-22CDCC7D076B}</Project>
-      <Name>NaiveStringComparer</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
