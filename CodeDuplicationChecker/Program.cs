@@ -53,7 +53,7 @@ namespace CodeDuplicationChecker
                             i++;
                             if (!Enum.TryParse(args[i], out algorithm))
                             {
-                                throw new ArgumentException("Invalid algorithm provided. Valid values are: [Naive, CMCD]");
+                                throw new ArgumentException("Invalid algorithm provided. Valid values are: [Naive, Type2, CMCD]");
                             }
                             break;
                         case "-h":
@@ -75,6 +75,9 @@ namespace CodeDuplicationChecker
                 {
                     case Algorithm.Naive:
                         comparer = new NaiveStringComparer.NaiveStringComparer();
+                        break;
+                    case Algorithm.Type2:
+                        comparer = new ASTMatch();
                         break;
                     case Algorithm.CMCD:
                     default:
