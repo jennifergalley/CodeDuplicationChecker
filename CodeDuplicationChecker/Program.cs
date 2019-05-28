@@ -87,6 +87,12 @@ namespace CodeDuplicationChecker
 
                 var results = CodeIterator.CheckForDuplicates(filepath, comparer, verbose);
 
+                if (results.Count == 0)
+                {
+                    Console.WriteLine("No duplicate methods found.");
+                    return 0;
+                }
+
                 // Generate the results
                 blockOfExecution = "generating the results file";
                 VisualizeDiffs.TryGenerateResultsFile(results, out var resultsFilePath, verbose);

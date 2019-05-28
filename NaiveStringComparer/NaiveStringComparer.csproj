@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{528577F6-D5AD-4EEB-AF65-22CDCC7D076B}</ProjectGuid>
+    <ProjectGuid>{39072DFA-FBC5-4C5D-8B1D-17E11A2394D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NaiveStringComparer</RootNamespace>
@@ -102,6 +102,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevenshteinDistance.cs" />
+    <Compile Include="NaiveComparer.cs" />
     <Compile Include="NaiveStringComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

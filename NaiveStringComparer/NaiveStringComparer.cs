@@ -21,18 +21,24 @@ namespace NaiveStringComparer
             }
 
             // If the strings are exactly the same, return 0
-            if (compare1.Equals(compare2))
-            {
-                return 0;
-            }
+            ////if (compare1.Equals(compare2))
+            ////{
+            ////    return 0;
+            ////}
 
-            return double.MaxValue;
+            ////return double.MaxValue;
+            ///
+
+            return LevenshteinDistance.GetLevenshteinDistance(compare1, compare2);
         }
 
         public double Compare(Method methodA, Method methodB)
         {
-            var compare1 = methodA.MethodNode.GetText().ToString();
-            var compare2 = methodB.MethodNode.GetText().ToString();
+            var compare1 = NaiveStringComparerHelper.GetFormattedString(methodA.MethodNode.GetText().ToString());
+            var compare2 = NaiveStringComparerHelper.GetFormattedString(methodB.MethodNode.GetText().ToString());
+
+            ////var compare1 = methodA.MethodNode.GetText().ToString();
+            ////var compare2 = methodB.MethodNode.GetText().ToString();
 
             return Compare(compare1, compare2);
         }
