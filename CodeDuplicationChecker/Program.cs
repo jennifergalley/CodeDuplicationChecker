@@ -1,5 +1,6 @@
 ﻿using CountMatrixCloneDetection;
 using Interfaces;
+using Models;
 using System;
 using System.Linq;
 
@@ -11,6 +12,7 @@ namespace CodeDuplicationChecker
         /// Parses the command line inputs and starts the check.
         /// Possible options:
         /// -f / --filepath <string> : specifies a directory of files to check for duplicates
+        /// -a / --algorithm <string> : specifies the algorithm to use to check for duplicates. Valid values are: [Naive, CMCD]
         /// -v / --verbose : indicates the program should produce verbose output
         /// -h / --help : prints the help dialog
         /// </summary>
@@ -21,6 +23,7 @@ namespace CodeDuplicationChecker
             var filepath = string.Empty; // -f / --filepath
             var verbose = false; // -v / --verbose
             var blockOfExecution = string.Empty; // the block of execution which threw an exception, if any
+            var algorithm = Algorithm.CMCD;
 
             try
             {
@@ -45,6 +48,14 @@ namespace CodeDuplicationChecker
                         case "--verbose":
                             verbose = true;
                             break;
+                        case "-a":
+                        case "--algorithm":
+                            i++;
+                            if (!Enum.TryParse(args[i], out algorithm))
+                            {
+                                throw new ArgumentException("Invalid algorithm provided. Valid values are: [Naive, CMCD]");
+                            }
+                            break;
                         case "-h":
                         case "--help":
                             PrintHelp();
@@ -59,9 +70,21 @@ namespace CodeDuplicationChecker
                     throw new ArgumentException("Either a filename or a directory must be provided.");
                 }
 
+                ICodeComparer comparer;
+                switch (algorithm)
+                {
+                    case Algorithm.Naive:
+                        comparer = new NaiveStringComparer.NaiveStringComparer();
+                        break;
+                    case Algorithm.CMCD:
+                    default:
+                        comparer = new CMCD();
+                        break;
+                }
+
                 // Run the scan
                 blockOfExecution = "parsing your file(s)";
-                ICodeComparer comparer = new CMCD();
+
                 var results = CodeIterator.CheckForDuplicates(filepath, comparer, verbose);
 
                 // Generate the results
@@ -93,6 +116,7 @@ namespace CodeDuplicationChecker
             Logger.Log("Help dialog:");
             Logger.Log("Possible options:");
             Logger.Log("-f / --filepath <string> [required] : specifies a filename or directory of files to check for duplicates");
+            Logger.Log("-a / --algorithm <string> : specifies the algorithm to use to check for duplicates. Valid values are: [Naive, CMCD]");
             Logger.Log("-v / --verbose : indicates the program should produce verbose output");
             Logger.Log("-h / --help : prints this help dialog");
         }

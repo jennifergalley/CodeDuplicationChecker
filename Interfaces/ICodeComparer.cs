@@ -1,9 +1,9 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Models;
 
 namespace Interfaces
 {
     public interface ICodeComparer
     {
-        double Compare(SyntaxNode methodNode1, SyntaxNode methodNode2);
+        double Compare(Method method1, Method method2);
     }
 }

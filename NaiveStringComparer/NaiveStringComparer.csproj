@@ -110,6 +110,10 @@
       <Project>{6EA320EC-5B67-42A6-909E-C0AC66798EFB}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{CA21FD1F-D83F-4A4F-94ED-D05E95F9611E}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

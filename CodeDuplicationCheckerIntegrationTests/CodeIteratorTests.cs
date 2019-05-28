@@ -21,7 +21,7 @@ namespace CodeDuplicationChecker.IntegrationTests
 
             // Assert
             Assert.IsNotNull(results);
-            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual(6, results.Count);
             Assert.AreEqual("RiddledWithDuplicates.cs", results[0].Filename);
             Assert.AreEqual("RiddledWithDuplicates.cs", results[1].Filename);
         }
@@ -37,7 +37,7 @@ namespace CodeDuplicationChecker.IntegrationTests
 
             // Assert
             Assert.IsNotNull(results);
-            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual(6, results.Count);
             Assert.AreEqual("RiddledWithDuplicates.cs", results[0].Filename);
             Assert.AreEqual("RiddledWithDuplicates.cs", results[1].Filename);
         }
@@ -81,14 +81,8 @@ namespace CodeDuplicationChecker.IntegrationTests
 
             // Assert
             Assert.IsTrue(cmcdResults.Any());
-            Assert.AreEqual(3, cmcdResults.Count());
+            Assert.AreEqual(6, cmcdResults.Count());
             Assert.AreEqual("RiddledWithDuplicates.cs", cmcdResults[0].MethodA.FileName);
-            Assert.AreEqual("StupidFunction", cmcdResults[0].MethodA.MethodName);
-            Assert.AreEqual("StupidFunctionDuplicate", cmcdResults[0].MethodB.MethodName);
-            Assert.AreEqual("StupidFunction", cmcdResults[1].MethodA.MethodName);
-            Assert.AreEqual("Log", cmcdResults[1].MethodB.MethodName);
-            Assert.AreEqual("StupidFunctionDuplicate", cmcdResults[2].MethodA.MethodName);
-            Assert.AreEqual("Log", cmcdResults[2].MethodB.MethodName);
         }
     }
 }

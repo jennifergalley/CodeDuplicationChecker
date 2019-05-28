@@ -102,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm.cs" />
     <Compile Include="DuplicateInstance.cs" />
     <Compile Include="DuplicateResult.cs" />
     <Compile Include="Method.cs" />

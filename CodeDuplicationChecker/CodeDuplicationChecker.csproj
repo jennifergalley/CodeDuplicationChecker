@@ -130,6 +130,10 @@
       <Project>{ca21fd1f-d83f-4a4f-94ed-d05e95f9611e}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NaiveStringComparer\NaiveStringComparer.csproj">
+      <Project>{528577F6-D5AD-4EEB-AF65-22CDCC7D076B}</Project>
+      <Name>NaiveStringComparer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.9.2\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

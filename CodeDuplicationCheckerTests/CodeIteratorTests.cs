@@ -45,7 +45,7 @@ namespace CodeDuplicationChecker.UnitTests
             var result = CodeIterator.GetMethods(filepath);
 
             // Assert
-            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(4, result.Count);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Interfaces;
-using Microsoft.CodeAnalysis;
+using Models;
 
 namespace NaiveStringComparer
 {
@@ -29,9 +29,12 @@ namespace NaiveStringComparer
             return double.MaxValue;
         }
 
-        public double Compare(SyntaxNode methodNode1, SyntaxNode methodNode2)
+        public double Compare(Method methodA, Method methodB)
         {
-            throw new System.NotImplementedException();
+            var compare1 = methodA.MethodNode.GetText().ToString();
+            var compare2 = methodB.MethodNode.GetText().ToString();
+
+            return Compare(compare1, compare2);
         }
     }
 }

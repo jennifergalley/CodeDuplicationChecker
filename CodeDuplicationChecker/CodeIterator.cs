@@ -78,7 +78,7 @@ namespace CodeDuplicationChecker
                         {
                             var methodA = allMethods[i];
                             var methodB = allMethods[j];
-                            var compareResult = comparer.Compare(methodA.MethodNode, methodB.MethodNode);
+                            var compareResult = comparer.Compare(methodA, methodB);
                             comparisonResults.Add(new DuplicateResult()
                             {
                                 MethodA = new MethodInfo(methodA),
