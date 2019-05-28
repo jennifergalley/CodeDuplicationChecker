@@ -1,13 +1,12 @@
 ﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using Interfaces;
 
 namespace CountMatrixCloneDetection
 {
-    public static class CMCD
+    public class CMCD : ICodeComparer
     {
         /// <summary>
         /// If the methods are completely different according to heuristic, this will be the default score.
@@ -38,101 +37,101 @@ namespace CountMatrixCloneDetection
         /// </summary>
         private const int MinimumVariableLengthToNormalize = 3;
 
-        /// <summary>
-        /// Method to run the CMCD algorithm
-        /// </summary>
-        public static List<CMCDDuplicateResult> Run(string directoryPath)
-        {
-            var comparisonResults = new List<CMCDDuplicateResult>();
+        /////// <summary>
+        /////// Method to run the CMCD algorithm
+        /////// </summary>
+        ////public static List<CMCDDuplicateResult> Run(string directoryPath)
+        ////{
+        ////    var comparisonResults = new List<CMCDDuplicateResult>();
 
-            try
-            {
-                var allMethods = new List<CMCDMethod>();
-                var attr = File.GetAttributes(directoryPath);
+        ////    try
+        ////    {
+        ////        var allMethods = new List<CMCDMethod>();
+        ////        var attr = File.GetAttributes(directoryPath);
 
-                var files = attr.HasFlag(FileAttributes.Directory) ? Directory.GetFiles(directoryPath, "*.cs", SearchOption.AllDirectories).ToList() : new List<string>() { directoryPath };
+        ////        var files = attr.HasFlag(FileAttributes.Directory) ? Directory.GetFiles(directoryPath, "*.cs", SearchOption.AllDirectories).ToList() : new List<string>() { directoryPath };
 
-                foreach (var file in files)
-                {
-                    var methods = GetMethods(file).Select(c =>
-                        new CMCDMethod()
-                        {
-                            FilePath = Path.GetFullPath(file),
-                            FileName = Path.GetFileName(file),
-                            MethodNode = c
-                        });
-                    allMethods.AddRange(methods);
-                }
+        ////        foreach (var file in files)
+        ////        {
+        ////            var methods = GetMethods(file).Select(c =>
+        ////                new CMCDMethod()
+        ////                {
+        ////                    FilePath = Path.GetFullPath(file),
+        ////                    FileName = Path.GetFileName(file),
+        ////                    MethodNode = c
+        ////                });
+        ////            allMethods.AddRange(methods);
+        ////        }
 
-                for (int i = 0; i < allMethods.Count; i++)
-                {
-                    for (int j = i + 1; j < allMethods.Count; j++)
-                    {
-                        try
-                        {
-                            var methodA = allMethods[i];
-                            var methodB = allMethods[j];
-                            var compareResult = Compare(methodA.MethodNode, methodB.MethodNode);
-                            comparisonResults.Add(new CMCDDuplicateResult()
-                            {
-                                MethodA = new CMCDMethodInfo(methodA),
-                                MethodB = new CMCDMethodInfo(methodB),
-                                Score = compareResult
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
+        ////        for (int i = 0; i < allMethods.Count; i++)
+        ////        {
+        ////            for (int j = i + 1; j < allMethods.Count; j++)
+        ////            {
+        ////                try
+        ////                {
+        ////                    var methodA = allMethods[i];
+        ////                    var methodB = allMethods[j];
+        ////                    var compareResult = Compare(methodA.MethodNode, methodB.MethodNode);
+        ////                    comparisonResults.Add(new CMCDDuplicateResult()
+        ////                    {
+        ////                        MethodA = new CMCDMethodInfo(methodA),
+        ////                        MethodB = new CMCDMethodInfo(methodB),
+        ////                        Score = compareResult
+        ////                    });
+        ////                }
+        ////                catch (Exception ex)
+        ////                {
+        ////                    Console.WriteLine(ex.Message);
+        ////                }
+        ////            }
+        ////        }
+        ////    }
+        ////    catch (Exception ex)
+        ////    {
+        ////        Console.WriteLine(ex.ToString());
+        ////    }
 
-            return comparisonResults;
-        }
+        ////    return comparisonResults;
+        ////}
 
-        /// <summary>
-        /// Get all the methods in a .cs file
-        /// </summary>
-        /// <param name="filePath">The file path</param>
-        /// <returns>List of methods</returns>
-        internal static List<SyntaxNode> GetMethods(string filePath)
-        {
-            var methods = new List<SyntaxNode>();
+        /////// <summary>
+        /////// Get all the methods in a .cs file
+        /////// </summary>
+        /////// <param name="filePath">The file path</param>
+        /////// <returns>List of methods</returns>
+        ////internal static List<SyntaxNode> GetMethods(string filePath)
+        ////{
+        ////    var methods = new List<SyntaxNode>();
 
-            if (File.Exists(filePath))
-            {
-                var programText = File.ReadAllText(filePath);
-                var tree = CSharpSyntaxTree.ParseText(programText);
-                var root = tree.GetCompilationUnitRoot();
+        ////    if (File.Exists(filePath))
+        ////    {
+        ////        var programText = File.ReadAllText(filePath);
+        ////        var tree = CSharpSyntaxTree.ParseText(programText);
+        ////        var root = tree.GetCompilationUnitRoot();
 
-                var child = root.ChildNodes();
+        ////        var child = root.ChildNodes();
 
-                foreach (var syntaxNode in child)
-                {
-                    switch (syntaxNode.Kind())
-                    {
-                        case SyntaxKind.MethodDeclaration:
-                            methods.Add(syntaxNode);
-                            break;
-                        case SyntaxKind.ClassDeclaration:
-                            methods.AddRange(SyntaxTreeParser.GetMethodsFromClassNode(syntaxNode));
-                            break;
-                        case SyntaxKind.NamespaceDeclaration:
-                            methods.AddRange(SyntaxTreeParser.GetMethodsFromNamespace(syntaxNode));
-                            break;
-                        default:
-                            continue;
-                    }
-                }
-            }
+        ////        foreach (var syntaxNode in child)
+        ////        {
+        ////            switch (syntaxNode.Kind())
+        ////            {
+        ////                case SyntaxKind.MethodDeclaration:
+        ////                    methods.Add(syntaxNode);
+        ////                    break;
+        ////                case SyntaxKind.ClassDeclaration:
+        ////                    methods.AddRange(SyntaxTreeParser.GetMethodsFromClassNode(syntaxNode));
+        ////                    break;
+        ////                case SyntaxKind.NamespaceDeclaration:
+        ////                    methods.AddRange(SyntaxTreeParser.GetMethodsFromNamespace(syntaxNode));
+        ////                    break;
+        ////                default:
+        ////                    continue;
+        ////            }
+        ////        }
+        ////    }
 
-            return methods;
-        }
+        ////    return methods;
+        ////}
 
         /// <summary>
         /// API to compare two methods
@@ -140,7 +139,7 @@ namespace CountMatrixCloneDetection
         /// <param name="methodA">Method A</param>
         /// <param name="methodB">Methods B</param>
         /// <returns>Comparision report between these two methods</returns>
-        internal static double Compare(SyntaxNode methodA, SyntaxNode methodB)
+        public double Compare(SyntaxNode methodA, SyntaxNode methodB)
         {
             var methodAVariablesCount = SyntaxTreeParser.GetVariablesCount(methodA, out var methodANodeCountPerLevel);
             var methodBVariablesCount = SyntaxTreeParser.GetVariablesCount(methodB, out var methodBNodeCountPerLevel);

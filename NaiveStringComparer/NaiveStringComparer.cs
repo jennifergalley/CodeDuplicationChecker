@@ -1,6 +1,9 @@
-﻿namespace CodeDuplicationChecker
+﻿using Interfaces;
+using Microsoft.CodeAnalysis;
+
+namespace NaiveStringComparer
 {
-    public class NaiveStringComparer
+    public class NaiveStringComparer : ICodeComparer
     {
         /// <summary>
         /// Gets the similarity score between two strings, with double.MaxValue being not alike at all
@@ -9,7 +12,7 @@
         /// <param name="compare1">the first string to compare</param>
         /// <param name="compare2">the second string to compare</param>
         /// <returns>0 if exactly the same, or double.MaxValue otherwise</returns>
-        public static double Compare(string compare1, string compare2)
+        public double Compare(string compare1, string compare2)
         {
             // If either string is null or whitespace, return double.MaxValue because we shouldn't find duplicate whitespace
             if (string.IsNullOrWhiteSpace(compare1) || string.IsNullOrWhiteSpace(compare2))
@@ -24,6 +27,11 @@
             }
 
             return double.MaxValue;
+        }
+
+        public double Compare(SyntaxNode methodNode1, SyntaxNode methodNode2)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

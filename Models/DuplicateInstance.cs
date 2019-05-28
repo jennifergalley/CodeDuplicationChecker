@@ -1,6 +1,4 @@
-﻿using CountMatrixCloneDetection;
-
-namespace CodeDuplicationChecker
+﻿namespace Models
 {
     /// <summary>
     /// An instance of duplicate code in a codebase.
@@ -14,7 +12,7 @@ namespace CodeDuplicationChecker
 
         }
 
-        public DuplicateInstance(CMCDMethodInfo methodInfo)
+        public DuplicateInstance(MethodInfo methodInfo)
         {
             Filename = methodInfo.FileName;
             StartLine = methodInfo.StartLineNumber;

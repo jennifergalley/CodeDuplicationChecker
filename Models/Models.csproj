@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{528577F6-D5AD-4EEB-AF65-22CDCC7D076B}</ProjectGuid>
+    <ProjectGuid>{CA21FD1F-D83F-4A4F-94ED-D05E95F9611E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NaiveStringComparer</RootNamespace>
-    <AssemblyName>NaiveStringComparer</AssemblyName>
+    <RootNamespace>Models</RootNamespace>
+    <AssemblyName>Models</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -102,14 +102,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NaiveStringComparer.cs" />
+    <Compile Include="DuplicateInstance.cs" />
+    <Compile Include="DuplicateResult.cs" />
+    <Compile Include="Method.cs" />
+    <Compile Include="MethodInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
-      <Project>{6EA320EC-5B67-42A6-909E-C0AC66798EFB}</Project>
-      <Name>Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

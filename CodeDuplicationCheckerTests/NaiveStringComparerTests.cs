@@ -5,6 +5,8 @@ namespace NaiveStringComparer.UnitTests
     [TestClass()]
     public class NaiveStringComparerTests
     {
+        NaiveStringComparer comparer = new NaiveStringComparer();
+
         [TestMethod()]
         public void GetSimilarityScore_SameTest()
         {
@@ -13,7 +15,7 @@ namespace NaiveStringComparer.UnitTests
             var compare2 = "hello";
 
             // Act
-            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
+            var result = comparer.Compare(compare1, compare2);
 
             // Assert
             Assert.AreEqual(0, result, "Similarity score returned was not correct.");
@@ -27,7 +29,7 @@ namespace NaiveStringComparer.UnitTests
             var compare2 = "hello";
 
             // Act
-            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
+            var result = comparer.Compare(compare1, compare2);
 
             // Assert
             Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");
@@ -41,7 +43,7 @@ namespace NaiveStringComparer.UnitTests
             var compare2 = "";
 
             // Act
-            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
+            var result = comparer.Compare(compare1, compare2);
 
             // Assert
             Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");
@@ -55,7 +57,7 @@ namespace NaiveStringComparer.UnitTests
             var compare2 = "hello";
 
             // Act
-            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
+            var result = comparer.Compare(compare1, compare2);
 
             // Assert
             Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");
@@ -69,7 +71,7 @@ namespace NaiveStringComparer.UnitTests
             string compare2 = null;
 
             // Act
-            var result = CodeDuplicationChecker.NaiveStringComparer.Compare(compare1, compare2);
+            var result = comparer.Compare(compare1, compare2);
 
             // Assert
             Assert.AreEqual(double.MaxValue, result, "Similarity score returned was not correct.");

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CountMatrixCloneDetection;
+using Interfaces;
+using System;
 using System.Linq;
 
 namespace CodeDuplicationChecker
@@ -59,7 +61,8 @@ namespace CodeDuplicationChecker
 
                 // Run the scan
                 blockOfExecution = "parsing your file(s)";
-                var results = CodeIterator.CheckForDuplicates(filepath, verbose);
+                ICodeComparer comparer = new CMCD();
+                var results = CodeIterator.CheckForDuplicates(filepath, comparer, verbose);
 
                 // Generate the results
                 blockOfExecution = "generating the results file";

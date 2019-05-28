@@ -226,41 +226,41 @@ namespace CountMatrixCloneDetection
             return variablesCount;
         }
 
-        /// <summary>
-        /// This method will return list of methods node defined in class by traversing the tree
-        /// </summary>
-        /// <param name="syntaxNode"></param>
-        /// <returns></returns>
-        public static IEnumerable<SyntaxNode> GetMethodsFromClassNode(SyntaxNode syntaxNode)
-        {
-            var methods = new List<SyntaxNode>();
-            foreach (var node in syntaxNode.ChildNodes())
-            {
-                if (node.Kind() == SyntaxKind.MethodDeclaration)
-                {
-                    methods.Add(node);
-                }
-            }
-            return methods;
-        }
+        /////// <summary>
+        /////// This method will return list of methods node defined in class by traversing the tree
+        /////// </summary>
+        /////// <param name="syntaxNode"></param>
+        /////// <returns></returns>
+        ////public static IEnumerable<SyntaxNode> GetMethodsFromClassNode(SyntaxNode syntaxNode)
+        ////{
+        ////    var methods = new List<SyntaxNode>();
+        ////    foreach (var node in syntaxNode.ChildNodes())
+        ////    {
+        ////        if (node.Kind() == SyntaxKind.MethodDeclaration)
+        ////        {
+        ////            methods.Add(node);
+        ////        }
+        ////    }
+        ////    return methods;
+        ////}
 
-        /// <summary>
-        /// This method will return list of methods node defined in namespace by traversing the tree
-        /// </summary>
-        /// <param name="syntaxNode"></param>
-        /// <returns></returns>
-        public static IEnumerable<SyntaxNode> GetMethodsFromNamespace(SyntaxNode syntaxNode)
-        {
-            var methods = new List<SyntaxNode>();
-            foreach (var node in syntaxNode.ChildNodes())
-            {
-                if (node.Kind() == SyntaxKind.ClassDeclaration)
-                {
-                    methods.AddRange(GetMethodsFromClassNode(node));
-                }
-            }
-            return methods;
-        }
+        /////// <summary>
+        /////// This method will return list of methods node defined in namespace by traversing the tree
+        /////// </summary>
+        /////// <param name="syntaxNode"></param>
+        /////// <returns></returns>
+        ////public static IEnumerable<SyntaxNode> GetMethodsFromNamespace(SyntaxNode syntaxNode)
+        ////{
+        ////    var methods = new List<SyntaxNode>();
+        ////    foreach (var node in syntaxNode.ChildNodes())
+        ////    {
+        ////        if (node.Kind() == SyntaxKind.ClassDeclaration)
+        ////        {
+        ////            methods.AddRange(GetMethodsFromClassNode(node));
+        ////        }
+        ////    }
+        ////    return methods;
+        ////}
 
         /// <summary>
         /// 
