@@ -638,7 +638,7 @@ namespace CountMatrixCloneDetection
                     item.DefinedByType = 7;
                     break;
                 default:
-                    item.DefinedByType = varType.GetHashCode();
+                    item.DefinedByType = 0;
                     break;
             }
         }
