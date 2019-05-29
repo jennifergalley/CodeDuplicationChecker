@@ -65,15 +65,12 @@
         public double SumProduct_Type_I_ChangeInSpacing(int n)
         {
             double sum = 0.0;//Original comments
-            double prod = 1.0;//More comments are added here
-            for (int i = 1; i <= n; i++)
-            {
-                for (int j = 0; j <= n; j++)
-                {
+            double prod = 1.0;
+            for (int i = 1; i <= n; i++)       {
+                for (int j = 0; j <= n; j++)    {
                     sum = sum + i;
                     prod = prod * i;
-                    Foo(sum, prod);
-                }
+                    Foo(sum, prod);              }
             }
 
             return sum;

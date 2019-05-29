@@ -5,10 +5,11 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System.IO;
+using Interfaces;
 
 namespace CountMatrixCloneDetection
 {
-    public class ASTMatch
+    public class ASTMatch: ICodeComparer
     {
 
         /// <summary>
