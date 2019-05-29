@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace CodeDuplicationCheckerApp
 {
@@ -67,6 +68,9 @@ namespace CodeDuplicationCheckerApp
                         Score = result.Score
                     });
                 }
+
+                list = list.OrderBy(c => c.Score).ToList();
+
                 dataGridView1.DataSource = list;
                 dataGridView1.Visible = true;
                 dataGridView1.CellContentClick += DataGridView1_CellContentClick;
