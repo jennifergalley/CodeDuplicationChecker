@@ -119,7 +119,7 @@ namespace CodeDuplicationChecker
         /// <summary>
         /// Prints the help dialog to the console
         /// </summary>
-        private static void PrintHelp()
+        internal static void PrintHelp()
         {
             Logger.Log(string.Empty);
             Logger.Log("Help dialog:");

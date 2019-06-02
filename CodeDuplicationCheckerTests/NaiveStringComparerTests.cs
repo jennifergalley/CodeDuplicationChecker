@@ -5,10 +5,10 @@ namespace NaiveStringComparer.UnitTests
     [TestClass()]
     public class NaiveStringComparerTests
     {
-        NaiveStringComparer comparer = new NaiveStringComparer();
+        readonly NaiveStringComparer comparer = new NaiveStringComparer();
 
         [TestMethod()]
-        public void GetSimilarityScore_SameTest()
+        public void GetSimilarityScore_Same_Test()
         {
             // Arrange
             var compare1 = "hello";
@@ -22,7 +22,7 @@ namespace NaiveStringComparer.UnitTests
         }
 
         [TestMethod()]
-        public void GetSimilarityScore_FirstEmptyTest()
+        public void GetSimilarityScore_FirstEmpty_Test()
         {
             // Arrange
             var compare1 = "";
@@ -36,7 +36,7 @@ namespace NaiveStringComparer.UnitTests
         }
 
         [TestMethod()]
-        public void GetSimilarityScore_SecondEmptyTest()
+        public void GetSimilarityScore_SecondEmpty_Test()
         {
             // Arrange
             var compare1 = "hello";
@@ -50,7 +50,7 @@ namespace NaiveStringComparer.UnitTests
         }
 
         [TestMethod()]
-        public void GetSimilarityScore_FirstNullTest()
+        public void GetSimilarityScore_FirstNull_Test()
         {
             // Arrange
             string compare1 = null;
@@ -64,7 +64,7 @@ namespace NaiveStringComparer.UnitTests
         }
 
         [TestMethod()]
-        public void GetSimilarityScore_SecondNullTest()
+        public void GetSimilarityScore_SecondNull_Test()
         {
             // Arrange
             var compare1 = "hello";

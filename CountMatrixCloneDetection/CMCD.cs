@@ -12,31 +12,31 @@ namespace CountMatrixCloneDetection
         /// <summary>
         /// If the methods are completely different according to heuristic, this will be the default score.
         /// </summary>
-        private const double CompletelyDifferentDefaultScore = double.MaxValue;
+        internal const double CompletelyDifferentDefaultScore = double.MaxValue;
 
         /// <summary>
         /// If the number of nodes difference is greater than this number on each level of abstract syntax tree, the method
         /// will be evaluated as different.
         /// </summary>
-        private const int MaxAllowedNodePerLevelDifference = 3;
+        internal const int MaxAllowedNodePerLevelDifference = 3;
 
         /// <summary>
         /// If the total number of node in abstract syntax tree is greater than this value, the method
         /// will be evaluated as different.
         /// </summary>
-        private const int MaxAllowedTotalDifference = 10;
+        internal const int MaxAllowedTotalDifference = 10;
 
         /// <summary>
         /// If the total variable difference between two method is greater than this value, the method
         /// will be evaluated as different.
         /// </summary>
-        private const int MaxAllowedVariableDifference = 7;
+        internal const int MaxAllowedVariableDifference = 7;
 
         /// <summary>
         /// If the number of variables is less or equal this number, the distance between will not be normalized, instead we
         /// used the absolute difference as score.
         /// </summary>
-        private const int MinimumVariableLengthToNormalize = 3;
+        internal const int MinimumVariableLengthToNormalize = 3;
 
         /// <summary>
         /// API to compare two methods
@@ -211,7 +211,7 @@ namespace CountMatrixCloneDetection
         /// <param name="largerNodeCountPerLevel"></param>
         /// <param name="smallerNodeCountPerLevel"></param>
         /// <returns></returns>
-        private static bool ShouldRunCountMatrixClonedDetection(IReadOnlyDictionary<int, int> largerNodeCountPerLevel, IReadOnlyDictionary<int, int> smallerNodeCountPerLevel)
+        internal static bool ShouldRunCountMatrixClonedDetection(IReadOnlyDictionary<int, int> largerNodeCountPerLevel, IReadOnlyDictionary<int, int> smallerNodeCountPerLevel)
         {
             if (largerNodeCountPerLevel.Count >= 2 * smallerNodeCountPerLevel.Count ||
                 Math.Abs(largerNodeCountPerLevel.Count - smallerNodeCountPerLevel.Count) >= MaxAllowedVariableDifference)

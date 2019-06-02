@@ -18,6 +18,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "CodeDuplicationCheckerIntegrationTests\IntegrationTests.csproj", "{E2FC76E9-F3C6-4FA6-9E45-93EE44B21E09}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleCode", "SampleCode", "{B7B20149-FF27-48A5-BDBD-F232DAA39D74}"
+	ProjectSection(SolutionItems) = preProject
+		CountMatrixCloneDetection\DupClass.cs = CountMatrixCloneDetection\DupClass.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoTests", "DemoTests", "{533C246C-7764-4415-BCD5-46804D325DF6}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,11 +1,8 @@
-﻿using Microsoft.CodeAnalysis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Interfaces;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using System.IO;
-using Interfaces;
+using System;
+using System.Linq;
 
 namespace CountMatrixCloneDetection
 {
@@ -29,7 +26,7 @@ namespace CountMatrixCloneDetection
         /// <param name="methodA">Method A</param>
         /// <param name="methodB">Methods B</param>
         /// <returns>Comparision report between these two methods</returns>
-        private bool Recurse(SyntaxNode node1, SyntaxNode node2)
+        internal bool Recurse(SyntaxNode node1, SyntaxNode node2)
         {
             if (node1.Kind() != node2.Kind()) return false;
             if (node1.ChildNodes().Count() != node2.ChildNodes().Count())

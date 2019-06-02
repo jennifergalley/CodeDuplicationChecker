@@ -1,5 +1,6 @@
 ﻿/////https://github.com/vivet/HungarianAlgorithm
 
+using Models;
 using System;
 
 namespace HungarianAlgorithm
@@ -15,7 +16,7 @@ namespace HungarianAlgorithm
         /// <param name="costs">A cost matrix; the element at row <em>i</em> and column <em>j</em> represents the cost of agent <em>i</em> performing task <em>j</em>.</param>
         /// <returns>A matrix of assignments; the value of element <em>i</em> is the column of the task assigned to agent <em>i</em>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="costs"/> is null.</exception>
-        public static int[] FindAssignments(this int[,] costs)
+        internal static int[] FindAssignments(this int[,] costs)
         {
             if (costs == null)
                 throw new ArgumentNullException(nameof(costs));
@@ -468,18 +469,6 @@ namespace HungarianAlgorithm
             for (var j = 0; j < w; j++)
             {
                 colsCovered[j] = false;
-            }
-        }
-
-        internal struct Location
-        {
-            internal readonly int row;
-            internal readonly int column;
-
-            internal Location(int row, int col)
-            {
-                this.row = row;
-                this.column = col;
             }
         }
     }

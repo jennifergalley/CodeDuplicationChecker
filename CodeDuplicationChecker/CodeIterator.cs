@@ -47,16 +47,18 @@ namespace CodeDuplicationChecker
         /// <summary>
         /// Method to run the CMCD algorithm
         /// </summary>
-        public static List<DuplicateResult> Run(string directoryPath, ICodeComparer comparer)
+        /// <param name="filepath">The directory to operate in</param>
+        /// <param name="comparer">The code comparer</param>
+        public static List<DuplicateResult> Run(string filepath, ICodeComparer comparer)
         {
             var comparisonResults = new List<DuplicateResult>();
 
             try
             {
                 var allMethods = new List<Method>();
-                var attr = File.GetAttributes(directoryPath);
+                var attr = File.GetAttributes(filepath);
 
-                var files = attr.HasFlag(FileAttributes.Directory) ? Directory.GetFiles(directoryPath, "*.cs", SearchOption.AllDirectories).ToList() : new List<string>() { directoryPath };
+                var files = attr.HasFlag(FileAttributes.Directory) ? Directory.GetFiles(filepath, "*.cs", SearchOption.AllDirectories).ToList() : new List<string>() { filepath };
 
                 foreach (var file in files)
                 {
@@ -146,7 +148,7 @@ namespace CodeDuplicationChecker
         /// </summary>
         /// <param name="syntaxNode"></param>
         /// <returns></returns>
-        public static IEnumerable<SyntaxNode> GetMethodsFromClassNode(SyntaxNode syntaxNode)
+        internal static IEnumerable<SyntaxNode> GetMethodsFromClassNode(SyntaxNode syntaxNode)
         {
             var methods = new List<SyntaxNode>();
             foreach (var node in syntaxNode.ChildNodes())
@@ -164,7 +166,7 @@ namespace CodeDuplicationChecker
         /// </summary>
         /// <param name="syntaxNode"></param>
         /// <returns></returns>
-        public static IEnumerable<SyntaxNode> GetMethodsFromNamespace(SyntaxNode syntaxNode)
+        internal static IEnumerable<SyntaxNode> GetMethodsFromNamespace(SyntaxNode syntaxNode)
         {
             var methods = new List<SyntaxNode>();
             foreach (var node in syntaxNode.ChildNodes())

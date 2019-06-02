@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace NaiveStringComparer
 {
     public class NaiveStringComparerHelper
     {
-        static List<string> KnownTypes = new List<string> { "int", "string", "char", "double", "float" };
-        static Dictionary<string, string> MatchDictionary = new Dictionary<string, string>();
-        static Dictionary<string, int> MatchCount = new Dictionary<string, int>();
+        static readonly List<string> KnownTypes = new List<string> { "int", "string", "char", "double", "float" };
+        static readonly Dictionary<string, string> MatchDictionary = new Dictionary<string, string>();
+        static readonly Dictionary<string, int> MatchCount = new Dictionary<string, int>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
         public static string GetFormattedString(string method)
         {
             List<string> testLines = method.Replace("\r\n", string.Empty).Split(';').ToList();
@@ -22,14 +25,13 @@ namespace NaiveStringComparer
             }
 
             return Pass1_ParseLinesReplaceVariables(method);
-
-            ////foreach (var match in MatchDictionary)
-            ////{
-            ////    Console.WriteLine(match.Key + ", " + match.Value + "Count: " + MatchCount[match.Value]);
-            ////}
         }
 
-        static void Pass0_ParseLineInitVariables(string line)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="line"></param>
+        internal static void Pass0_ParseLineInitVariables(string line)
         {
             foreach (var type in KnownTypes)
             {
@@ -61,7 +63,12 @@ namespace NaiveStringComparer
             }
         }
 
-        static string Pass1_ParseLinesReplaceVariables(string str)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        internal static string Pass1_ParseLinesReplaceVariables(string str)
         {
             string replacementString = str;
             foreach (var variableMapping in MatchDictionary)
@@ -86,13 +93,5 @@ namespace NaiveStringComparer
 
             return replacementString;
         }
-
-        ////static string TestParseText()
-        ////{
-        ////    string str = "int initvalue = 10;\r\n initvalue = initvalue + 20;\r\n int junior; ";
-        ////    string str1 = "int j;";
-        ////    return str;
-        ////}
-
     }
 }

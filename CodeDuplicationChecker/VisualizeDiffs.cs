@@ -17,12 +17,12 @@ namespace CodeDuplicationChecker
         /// <summary>
         /// The directory in which to save the results file
         /// </summary>
-        private static string Filepath = "../../../Results/";
+        private static readonly string Filepath = "../../../Results/";
 
         /// <summary>
         /// The name of the results file itself
         /// </summary>
-        private static string Filename = "results.html";
+        private static readonly string Filename = "results.html";
 
         /// <summary>
         /// Generates an HTML (or other) results file for viewing the list of CodeDuplicates.
@@ -92,7 +92,7 @@ namespace CodeDuplicationChecker
         /// </summary>
         /// <param name="code">the code to split</param>
         /// <returns>a list of lines as strings</returns>
-        public static List<string> SplitCodeNewlines(string code)
+        internal static List<string> SplitCodeNewlines(string code)
         {
             code = code.Trim();
             return code.Split(
@@ -105,7 +105,7 @@ namespace CodeDuplicationChecker
         /// Generates the html for diff of code instances
         /// </summary>
         /// <param name="codeDuplicates">the instances of duplicate code</param>
-        public static void GenerateCodeHTML(List<DuplicateInstance> codeDuplicates, bool verbose = false)
+        internal static void GenerateCodeHTML(List<DuplicateInstance> codeDuplicates, bool verbose = false)
         {
             if (verbose) Logger.Log("Beginning execution of GenerateCodeHTML");
 

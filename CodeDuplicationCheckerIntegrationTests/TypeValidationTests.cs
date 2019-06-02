@@ -7,10 +7,10 @@ namespace CodeDuplicationChecker.IntegrationTests
     [TestClass]
     public class TypeValidationTests
     {
-        ICodeComparer comparer = new CMCD();
+        readonly ICodeComparer comparer = new CMCD();
 
         [TestMethod]
-        public void ValidateType1Tests()
+        public void Validate_Type1_Test()
         {
             var currentPath = "../../../SampleCode/TypeValidationTests/Type1Tests/";
 
@@ -27,7 +27,7 @@ namespace CodeDuplicationChecker.IntegrationTests
         }
 
         [TestMethod]
-        public void ValidateType2Tests()
+        public void Validate_Type2_Test()
         {
             var currentPath = "../../../SampleCode/TypeValidationTests/Type2Tests/";
 
@@ -44,7 +44,7 @@ namespace CodeDuplicationChecker.IntegrationTests
         }
 
         [TestMethod]
-        public void ValidateType3Tests()
+        public void Validate_Type3_Test()
         {
             var currentPath = "../../../SampleCode/TypeValidationTests/Type3Tests/";
 
@@ -72,7 +72,7 @@ namespace CodeDuplicationChecker.IntegrationTests
         }
 
         [TestMethod]
-        public void ValidateType4Tests()
+        public void Validate_Type4_Test()
         {
             var currentPath = "../../../SampleCode/TypeValidationTests/Type4Tests/";
 

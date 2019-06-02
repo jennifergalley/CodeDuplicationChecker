@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Models;
 
 namespace CountMatrixCloneDetection
 {
@@ -16,7 +17,7 @@ namespace CountMatrixCloneDetection
         /// <param name="methodNode"></param>
         /// <param name="nodeCountPerLevel"></param>
         /// <returns></returns>
-        public static List<VariableName> GetVariablesCount(SyntaxNode methodNode, out Dictionary<int, int> nodeCountPerLevel)
+        internal static List<VariableName> GetVariablesCount(SyntaxNode methodNode, out Dictionary<int, int> nodeCountPerLevel)
         {
             var variablesCount = new List<VariableName>();
             var queue = new Queue<SyntaxNode>();
@@ -500,8 +501,6 @@ namespace CountMatrixCloneDetection
 
             return false;
         }
-
-
 
         /// <summary>
         /// 

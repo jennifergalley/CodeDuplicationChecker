@@ -11,7 +11,7 @@ namespace CountMatrixCloneDetection
         /// <param name="u">matrix of variable counts</param>
         /// <param name="v">matrix of variable counts</param>
         /// <returns></returns>
-        public static int[] GetBipartiteMatrix(double[,] u, double[,] v)
+        internal static int[] GetBipartiteMatrix(double[,] u, double[,] v)
         {
             var p = CreateBipartiteMatrix(u, v);
             return HungarianAlgorithm.HungarianAlgorithm.FindAssignments(p);
