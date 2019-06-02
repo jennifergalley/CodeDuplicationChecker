@@ -1,9 +1,8 @@
-﻿using CodeDuplicationChecker;
-using CountMatrixCloneDetection;
+﻿using CountMatrixCloneDetection;
 using Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TypeValidationTests
+namespace CodeDuplicationChecker.IntegrationTests
 {
     [TestClass]
     public class TypeValidationTests
