@@ -52,6 +52,7 @@
     <Compile Include="CodeIteratorTests.cs" />
     <Compile Include="ProgramTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeValidationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
