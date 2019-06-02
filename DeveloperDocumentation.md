@@ -6,24 +6,59 @@ Clone the repository and open the CodeDuplicationChecker solution file in Visual
 ### Build
 1. From the Solution Explorer in Visual Studio, right click the solution at the top and click "Build solution" (you can also just do Ctrl + Shift + B or F6).
 
+![Image of build](Markdown%20images/Build.png)
+
 ### Test
 1. In Visual Studio, open the Test Explorer window by going to Test -> Windows -> Test Explorer (or do Ctrl + E, T). 
+
+![Image of Test Explorer](Markdown%20images/Test%20Explorer.png)
+
 2. At the top, click "Run all" (or just do Ctrl + R, A).
+
+![Image of Tests](Markdown%20images/Tests.png)
 
 ### Run
 #### Windows Forms UI
-1. At the top of Visual Studio, in the dropdown next to the "Start" play button, select CodeDuplicationCheckerApp. Alternatively, right click the CodeDuplicationCheckerApp project in the Solution Explorer and click "Set as Startup Project". 
+1. At the top of Visual Studio, in the dropdown next to the "Start" play button, select CodeDuplicationCheckerApp. 
+
+![Image of Tests](Markdown%20images/Windows%20Forms.png)
+
+Alternatively, right click the CodeDuplicationCheckerApp project in the Solution Explorer and click "Set as Startup Project". 
+
+![Image of Tests](Markdown%20images/Set%20as%20Startup.png)
+
 2. Then click "Start" (or do F5 for debugging, Ctrl + F5 for without debugging).
 
+![Image of Tests](Markdown%20images/Start.png)
+
 #### Command Line
-1. At the top of Visual Studio, in the dropdown next to the "Start" play button, select CodeDuplicationChecker. Alternatively, right click the CodeDuplicationChecker project in the Solution Explorer and click "Set as Startup Project".  
+1. At the top of Visual Studio, in the dropdown next to the "Start" play button, select CodeDuplicationChecker. 
+
+![Image of Tests](Markdown%20images/Main%20project.png)
+
+Alternatively, right click the CodeDuplicationChecker project in the Solution Explorer and click "Set as Startup Project". 
+
+![Image of Tests](Markdown%20images/Set%20as%20Startup.png) 
+
 2. Open the Properties for the project by double clicking the Properties file in the Solution Explorer. 
+
+![Image of Tests](Markdown%20images/Properties.png)
+
 3. Set the command-line arguments you'd like to pass in using the Debug tab. 
+
+![Image of Tests](Markdown%20images/Debug.png)
+
 4. Then click "Start" (or do F5 for debugging, Ctrl + F5 for without debugging). 
+
+![Image of Tests](Markdown%20images/Start2.png)
 
 To see the results, go to the root directory of the project in your file explorer -> Results -> open results.html. 
 
+![Image of Tests](Markdown%20images/results.png)
+
 You may also want to place a breakpoint at the end of the Main program to see the debugging output in the console window.
+
+![Image of Tests](Markdown%20images/output.png)
 
 ## Major Design Decisions
 We implemented the project in C# using Visual Studio due to familiarity with the language and the tools. This allowed us to use a simple console application as the user interface during development and expand to a more powerful Windows Forms UI later in the project. We chose to use Windows Forms for displaying the results of the CMCD algorithm because it was a good way to show the methods we had compared, their similarity scores, and enable clickthrough to the code visualization. 
