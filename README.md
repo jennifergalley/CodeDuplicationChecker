@@ -12,3 +12,5 @@ Code duplication checker for class CSE P 590 B
 [Developer Documentation](DeveloperDocumentation.md)
 
 [Evaluation Document](Evaluation%20document.docx)
+
+[User-facing document](User%20Documentation.docx)
